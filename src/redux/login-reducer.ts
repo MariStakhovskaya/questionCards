@@ -40,7 +40,7 @@ export const setUserDataAC = (userData: LoginResponseType) => ({
     payload: {userData}
 } as const)
 
-
+//type
 export type isLoggedInAC = ReturnType<typeof isLoggedInAC>
 export type isError = ReturnType<typeof isError>
 export type setUserDataAC = ReturnType<typeof setUserDataAC>
@@ -69,5 +69,3 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<isLoggedIn
 }
 
 
-
-//type
