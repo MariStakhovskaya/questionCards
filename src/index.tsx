@@ -10,13 +10,12 @@ import {BrowserRouter} from "react-router-dom";
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
-root.render(<React.StrictMode>
+root.render(
         <Provider store={store}>
             <BrowserRouter>
                 <App/>
             </BrowserRouter>
         </Provider>
-    </React.StrictMode>
 )
 ;
 

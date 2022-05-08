@@ -11,7 +11,7 @@ import {resetReducer} from "./reset-reducer";
 const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
-    Login:loginReducer,
+    login:loginReducer,
     profile: profileReducer,
     reset: resetReducer,
 })
