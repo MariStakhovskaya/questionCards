@@ -7,8 +7,9 @@ function Test() {
 
     return (
         <div className="Test">
-        <Link to={"/Login"}>Login</Link>
+        <Link to={"/login"}>Login</Link>
         <Link to={"/profile"}>Profile</Link>
+        <Link to={"/registration"}>Registration</Link>
 
         </div>
     );

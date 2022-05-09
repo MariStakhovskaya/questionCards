@@ -19,11 +19,20 @@ export const authAPI = {
     },
     logout(){
         return instance.delete('auth/me')
+    },
+    registration(email: string, password: string){
+        return instance.post('auth/register', {email, password})
     }
 }
 
 
 // types
+export type RegParamsType = {
+    email: string,
+    password: string,
+
+}
+
 export type LoginParamsType = {
     email: string,
     password: string,

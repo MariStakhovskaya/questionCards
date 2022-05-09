@@ -8,8 +8,8 @@ import { Navigate } from 'react-router-dom';
 
 
 function Login() {
-    const [email, setEmail] = useState('nya-admin@nya.nya')
-    const [password, setPassword] = useState('1qazxcvBG')
+    const [email, setEmail] = useState('maria.stachovski.de@gmail.com')
+    const [password, setPassword] = useState('12341234M')
     const [rememberMe, setRememberMe] = useState(false)
 
     const dispatch = useDispatch()
@@ -36,7 +36,7 @@ const onClickButtonHandler = () => {
 
             Логинизация
             <input value={email} onChange={onChangeInputHandler}  />
-            <input value={password} onChange={onChangeInputPassHandler}   />
+            <input type={"password"} value={password} onChange={onChangeInputPassHandler}   />
             <input type={"checkbox"} onChange={onChangeInputCheckbox}/>
             <button onClick={onClickButtonHandler}>Login</button>
            <div>{isError}</div>

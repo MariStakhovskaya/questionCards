@@ -46,18 +46,17 @@ export type isError = ReturnType<typeof isError>
 export type setUserDataAC = ReturnType<typeof setUserDataAC>
 
 // thunk
+
 export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<isLoggedInAC |setUserDataAC | isError >) => {
-        debugger
+
         authAPI.login(data)
             .then((res) => {
-                debugger
                 console.log(res.data)
 
                 dispatch(setUserDataAC(res.data))
                 dispatch(isLoggedInAC(true))
             })
             .catch(err => {
-                debugger
                     const error = err.response
                         ? err.response.data.error
                         : (err.message + ', more details in the console');
@@ -65,7 +64,13 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<isLoggedIn
                 dispatch(isError(error))
 
             })
+}
 
+export const logoutTC = () => (dispatch: Dispatch) => {
+    authAPI.logout()
+        .then((res)=>{
+            dispatch(isLoggedInAC(false))
+        })
 }
 
 
