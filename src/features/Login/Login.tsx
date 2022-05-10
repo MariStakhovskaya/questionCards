@@ -1,10 +1,9 @@
 import React, {ChangeEvent, useState} from 'react';
-import '../../App.css';
+import style from '../../App.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../../redux/login-reducer";
 import {AppRootState} from "../../redux/store";
-import { Navigate } from 'react-router-dom';
-
+import {Navigate} from 'react-router-dom';
 
 
 function Login() {
@@ -26,21 +25,30 @@ function Login() {
         setRememberMe(event.currentTarget.checked)
     }
 
-const onClickButtonHandler = () => {
-    dispatch<any>(loginTC({email,password,rememberMe}))
-}
+    const onClickButtonHandler = () => {
+        dispatch<any>(loginTC({email, password, rememberMe}))
+    }
 
 
     return (
-        <div className="Login">
+        <div className={style.formBlock}>
+            <div className={style.titleFormBlock}>
+                <h5>Cards Project</h5>
+                <h5>Login</h5>
+            </div>
+            <div>
+                <input value={email} onChange={onChangeInputHandler}/>
+                <input type={"password"} value={password} onChange={onChangeInputPassHandler}/>
+                <input type={"checkbox"} onChange={onChangeInputCheckbox}/> <span>RememberMe</span>
+                <button onClick={onClickButtonHandler}>Login</button>
+                <div>{isError}</div>
+            </div>
+            <div className={style.footerFormBlock}>
+                <div>Don't have an account?</div>
+                <div>Sign up</div>
+            </div>
 
-            Логинизация
-            <input value={email} onChange={onChangeInputHandler}  />
-            <input type={"password"} value={password} onChange={onChangeInputPassHandler}   />
-            <input type={"checkbox"} onChange={onChangeInputCheckbox}/>
-            <button onClick={onClickButtonHandler}>Login</button>
-           <div>{isError}</div>
-            {isLoggedIn && (<Navigate to={'/profile'} />)}
+            {isLoggedIn && (<Navigate to={'/profile'}/>)}
         </div>
     );
 }

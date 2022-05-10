@@ -1,12 +1,18 @@
 import React from 'react';
-import './App.css';
+import '../../App.module.css';
+
 
 function Reset() {
+
+
     return (
-        <div className="Reset">
-Здесь будет сброс
+        <div className="Registration">
+Reset
+
+
         </div>
     );
 }
 
 export default Reset;
+
