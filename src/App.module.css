@@ -45,9 +45,15 @@
   background-color: white;
   color: #2D2E46;
   min-width: 200px;
-  max-width: 400px;
+  width: 350px;
   height: 600px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+}
+.formBlockInput {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .footerBlock {
@@ -55,6 +61,38 @@
   text-align: center;
   height: 5%;
   font-size: calc(10px + 0.5vmin);
+}
+
+.defaultButton {
+  background-color: #21268F;
+  border: none;
+  color: #ECECF9;
+  padding: 8px 63px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  outline: 0;
+}
+
+.defaultInput {
+  border: none;
+  border-bottom: 1px solid darkseagreen;
+  /* border-radius: 5px; */
+  /* border: none; */
+  /* box-shadow: 0 0 11px darkseagreen; */
+  margin: 10px 20px;
+  padding: 5px;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+button:hover {
+  background-color: rgba(48, 9, 222, 0.6);
+
 }
 
 

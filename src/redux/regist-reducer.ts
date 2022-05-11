@@ -34,7 +34,6 @@ export type registrationACType = ReturnType<typeof registrationAC>
 // thunk
 
 export const registrationTC = (email: string, password: string) => (dispatch: Dispatch<registrationACType | isLoggedInAC | isError>) => {
-    debugger
     authAPI.registration(email, password)
         .then((res) => {
             console.log(res.data.addedUser)

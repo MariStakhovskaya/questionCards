@@ -36,11 +36,13 @@ function Login() {
                 <h5>Cards Project</h5>
                 <h5>Login</h5>
             </div>
-            <div>
-                <input value={email} onChange={onChangeInputHandler}/>
-                <input type={"password"} value={password} onChange={onChangeInputPassHandler}/>
-                <input type={"checkbox"} onChange={onChangeInputCheckbox}/> <span>RememberMe</span>
-                <button onClick={onClickButtonHandler}>Login</button>
+            <div className={style.formBlockInput}>
+                <input className={style.defaultInput} value={email} onChange={onChangeInputHandler}/>
+                <input className={style.defaultInput} type={"password"} value={password} onChange={onChangeInputPassHandler}/>
+                <label>
+                    <input type={"checkbox"} name="RememberMe" onChange={onChangeInputCheckbox}/>RememberMe
+                </label>
+                <button className={style.defaultButton} onClick={onClickButtonHandler}>Login</button>
                 <div>{isError}</div>
             </div>
             <div className={style.footerFormBlock}>

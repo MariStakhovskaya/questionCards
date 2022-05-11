@@ -37,7 +37,7 @@ const onClickHandler = () => {
     <input value={password} onChange={onChangeHandlerPass}   />
     {error ? error : ''}
     {/*<input type={"password"} value={password} onChange={()=>{}}/>*/}
-    <button onClick={onClickHandler}>Register</button></div>
+    <button className={style.defaultButton} onClick={onClickHandler}>Register</button></div>
 
             <div className={style.footerFormBlock}>
 

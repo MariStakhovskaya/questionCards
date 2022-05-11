@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../../App.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../redux/store";
 import {logoutTC} from "../../redux/login-reducer";
 import { Navigate } from 'react-router-dom';
+import {updateUserAvatarTC, updateUserDateTC} from "../../redux/profile-reducer";
+import {EditableSpan} from "../../common/EditableSpan";
+import {initializeAppTC} from "../../redux/app-reducer";
 
 function Profile() {
+
+    useEffect(()=>{
+        dispatch<any>(initializeAppTC())
+    })
 
     const userName = useSelector<AppRootState, string>(state => state.login.name)
     const userAvatar = useSelector<AppRootState, string>(state => state.login.avatar)
@@ -16,14 +23,26 @@ function Profile() {
         dispatch<any>(logoutTC())
     }
 
+    const onChangeEditableSpan = (name: string) => {
+        dispatch<any>(updateUserDateTC(name))
+    }
+
+    const onChangeEditableSpanAva = (avatar: string) => {
+        dispatch<any>(updateUserAvatarTC(avatar))
+    }
+
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
     return (
         <div className="Profile">
-            <h3>Profile {userName}</h3>
+            {/*<h3>Profile {userName}</h3> <button onClick={onClickUpdateHandler}>Update</button>*/}
+           {userName}
+                <EditableSpan value={userName} onChange={onChangeEditableSpan}/>
+            <div> <img src={userAvatar} alt='some avatar'/>
+                <EditableSpan value={userAvatar} onChange={onChangeEditableSpanAva}/>
+        </div>
 
-            <div><img src={userAvatar} alt='some avatar'/></div>
             <button onClick={onClickLogoutHandler}>Logout</button>
         </div>
     );

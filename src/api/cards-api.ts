@@ -15,23 +15,26 @@ export const authAPI = {
     login(data: LoginParamsType) {
       return instance.post<LoginResponseType>('/auth/login', data)
     },
-    me(){
+    authMe(){
+        return instance.post<{data:LoginResponseType}>('/auth/me',{})
     },
     logout(){
         return instance.delete('auth/me')
     },
     registration(email: string, password: string){
         return instance.post('auth/register', {email, password})
+    },
+    updateUserData(name: string) {
+            return instance.put('auth/me',{name} )
+    },
+    updateUserAvatar(avatar: string) {
+        return instance.put('auth/me',{avatar} )
     }
 }
 
 
 // types
-export type RegParamsType = {
-    email: string,
-    password: string,
 
-}
 
 export type LoginParamsType = {
     email: string,
