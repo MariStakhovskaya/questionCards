@@ -1,12 +1,19 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import style from '../../App.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../../redux/login-reducer";
 import {AppRootState} from "../../redux/store";
 import {Navigate} from 'react-router-dom';
+import Preloader from "../../common/Preloader";
 
 
 function Login() {
+
+
+    useEffect(()=>{
+
+    },[])
+
     const [email, setEmail] = useState('maria.stachovski.de@gmail.com')
     const [password, setPassword] = useState('12341234M')
     const [rememberMe, setRememberMe] = useState(false)
@@ -14,6 +21,7 @@ function Login() {
     const dispatch = useDispatch()
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
     const isError = useSelector<AppRootState, string>(state => state.login.error)
+    const status = useSelector<AppRootState, string>(state => state.app.status)
 
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.currentTarget.value)
@@ -36,6 +44,7 @@ function Login() {
                 <h5>Cards Project</h5>
                 <h5>Login</h5>
             </div>
+            {status === 'loading' && <Preloader/>}
             <div className={style.formBlockInput}>
                 <input className={style.defaultInput} value={email} onChange={onChangeInputHandler}/>
                 <input className={style.defaultInput} type={"password"} value={password} onChange={onChangeInputPassHandler}/>
@@ -49,8 +58,8 @@ function Login() {
                 <div>Don't have an account?</div>
                 <div>Sign up</div>
             </div>
-
             {isLoggedIn && (<Navigate to={'/profile'}/>)}
+
         </div>
     );
 }

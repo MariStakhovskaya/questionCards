@@ -36,10 +36,11 @@ function Profile() {
     }
     return (
         <div className="Profile">
-            {/*<h3>Profile {userName}</h3> <button onClick={onClickUpdateHandler}>Update</button>*/}
-           {userName}
+
+
                 <EditableSpan value={userName} onChange={onChangeEditableSpan}/>
             <div> <img src={userAvatar} alt='some avatar'/>
+                <br/>
                 <EditableSpan value={userAvatar} onChange={onChangeEditableSpanAva}/>
         </div>
 

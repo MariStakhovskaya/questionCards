@@ -1,5 +1,6 @@
 import React from 'react';
-import preloader from 'preloader.gif'
+import preloader from './Ellipsis.gif'
+import style from '../App.module.css'
 
 
 
@@ -7,7 +8,7 @@ function Preloader() {
 
     return (
         <div className="preloader">
-           <img src={preloader} alt="preloader"/>
+           <img className={style.loader} src={preloader} alt="preloader"/>
         </div>
     );
 }
