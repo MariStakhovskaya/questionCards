@@ -8,6 +8,7 @@ import Registration from "./features/Registration/Registration";
 import Header from "./common/Header";
 import Reset from "./features/ResetPassword/Reset";
 import Test from "./features/Test";
+import Error404 from "./common/Page404";
 
 function App() {
 
@@ -23,7 +24,7 @@ function App() {
                 <Route path="profile" element={<Profile/>}/>
                 <Route path="registration" element={<Registration/>}/>
                 <Route path="reset" element={<Reset/>}/>
-                <Route path="/404" element={<h1>404 Page not found</h1>}/>
+                <Route path="/404" element={<Error404/>}/>
                 <Route path="*" element={<Navigate to="/404"/>}/>
             </Routes>
 
