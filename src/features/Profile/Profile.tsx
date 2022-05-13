@@ -6,16 +6,23 @@ import {logoutTC} from "../../redux/login-reducer";
 import { Navigate } from 'react-router-dom';
 import {updateUserAvatarTC, updateUserDateTC} from "../../redux/profile-reducer";
 import {EditableSpan} from "../../common/EditableSpan";
-import {initializeAppTC} from "../../redux/app-reducer";
+
 
 function Profile() {
 
-    useEffect(()=>{
-        dispatch<any>(initializeAppTC())
-    })
+    useEffect( () => {
+        if (!isLoggedIn){
+            return
+        } else {
 
-    const userName = useSelector<AppRootState, string>(state => state.login.name)
-    const userAvatar = useSelector<AppRootState, string>(state => state.login.avatar)
+        }
+
+
+    },[])
+
+
+    const userName = useSelector<AppRootState, string>(state => state.profile.userData.name)
+    const userAvatar = useSelector<AppRootState, string>(state => state.profile.userData.avatar)
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
     const dispatch = useDispatch()
 
@@ -28,12 +35,14 @@ function Profile() {
     }
 
     const onChangeEditableSpanAva = (avatar: string) => {
+        debugger
         dispatch<any>(updateUserAvatarTC(avatar))
     }
 
     if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }
+
     return (
         <div className="Profile">
 

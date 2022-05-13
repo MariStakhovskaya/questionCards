@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI, LoginParamsType} from "../api/cards-api";
+import {authAPI} from "../api/cards-api";
 import {isError, isLoggedInAC} from "./login-reducer";
 
 const initialState = {
@@ -15,7 +15,6 @@ export const loginReducer = (state: InitialStateType = initialState, action: Act
 
     switch (action.type) {
         case "REGISTRATION":
-            debugger
             return {...state, email: action.email, password: action.password}
 
         default:

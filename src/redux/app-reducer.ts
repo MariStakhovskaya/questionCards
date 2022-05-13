@@ -2,6 +2,7 @@
 import { Dispatch } from "redux";
 import {authAPI} from "../api/cards-api";
 import {isLoggedInAC} from "./login-reducer";
+import {setUserDataAC} from "./profile-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -35,8 +36,9 @@ export const setStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATU
 export const initializeAppTC = () => (dispatch: Dispatch) => {
     authAPI.authMe().then(res => {
         debugger
-        console.log(res.data)
-        if (res.data.data) {
+        if (res.status === 200) {
+            // @ts-ignore
+            dispatch(setUserDataAC(res.data))
             dispatch(isLoggedInAC(true))
         } else {
 
@@ -52,3 +54,7 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
 //type
 export type SetIsInitializedACType = ReturnType<typeof setIsInitializedAC>
 export type SetStatusACType = ReturnType<typeof setStatusAC>
+
+
+
+

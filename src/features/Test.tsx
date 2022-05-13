@@ -6,7 +6,7 @@ function Test() {
 
     return (
 
-        <div className={style.maindBlock}>
+        <div className={style.mainBlock}>
            {/* <Header/>*/}
 
         </div>
