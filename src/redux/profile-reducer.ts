@@ -26,6 +26,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
         case "UPDATE-USER-DATA":
             return {...state,
                 userData:{...state.userData,...action.payload}}
+
         /* case 'UPDATE-USER-NAME':
              return {...state, ...action.payload }
          case 'UPDATE-USER-AVATAR':
@@ -60,7 +61,9 @@ export const updateUserAvatarAC = (avatar: string) => ({
 export const updateUserDateTC = (name:string, avatar: string) => (dispatch: Dispatch<ActionTypes>) => {
     authAPI.updateUserData(name, avatar)
         .then((res)=>{
-            dispatch(updateUserDateAC(res.data.name, res.data.avatar))
+            console.log(res.data.updatedUser)
+            dispatch(updateUserDateAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
+
         })
 }
 

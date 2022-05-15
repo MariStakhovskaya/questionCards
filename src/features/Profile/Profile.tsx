@@ -11,6 +11,7 @@ import {EditableSpan} from "../../common/EditableSpan";
 
  const Profile = React.memo(() => {
 
+
      useEffect( () => {
          if (!isLoggedIn){
              return
@@ -18,13 +19,15 @@ import {EditableSpan} from "../../common/EditableSpan";
 
      },[])
 
-
      const userName = useSelector<AppRootState, string>(state => state.profile.userData.name)
      const userAvatar = useSelector<AppRootState, string>(state => state.profile.userData.avatar)
      const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
 
      let [name, setName] = useState(userName);
      let [avatar, setAvatar] = useState(userAvatar);
+
+
+
      let [edit, setEdit] = useState(false);
      let [editName, setEditName] = useState(false);
 
@@ -47,7 +50,6 @@ import {EditableSpan} from "../../common/EditableSpan";
 
      const onChangeUpdateData = () => {
          dispatch<any>(updateUserDateTC(name,avatar))
-         console.log(name,avatar)
      }
 
    /*  const onChangeName = (e: ChangeEvent<HTMLInputElement>) => {
