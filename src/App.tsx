@@ -12,11 +12,14 @@ import {initializeAppTC} from "./redux/app-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./redux/store";
 import Preloader from "./common/Preloader";
+import Test from "./features/Test";
+import {AllRoutes} from "./app/Routes/AllRoutes";
 
 function App() {
 
     const dispatch = useDispatch()
     const isInitialized = useSelector<AppRootState, boolean>( state => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootState, boolean>( state => state.login.isLoggedIn)
 
     useEffect(()=>{
         dispatch<any>(initializeAppTC())
@@ -25,20 +28,12 @@ function App() {
     if (!isInitialized){
         return <Preloader/>
     }
+
     return (
         <div className={style.mainBlock}>
 
             <Header/>
-
-            <Routes>
-                <Route path="/" element={<Profile />}/>
-                <Route path="login" element={<Login/>}/>
-                <Route path="profile" element={<Profile/>}/>
-                <Route path="registration" element={<Registration/>}/>
-                <Route path="reset" element={<Reset/>}/>
-                <Route path="/404" element={<Error404/>}/>
-                <Route path="*" element={<Navigate to="/404"/>}/>
-            </Routes>
+           <AllRoutes />
 
             <footer className={style.footerBlock}>
                 @2022 cards training project

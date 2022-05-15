@@ -24,11 +24,14 @@ export const authAPI = {
     registration(email: string, password: string){
         return instance.post('auth/register', {email, password})
     },
-    updateUserData(name: string) {
+  /*  updateUserData(name: string) {
             return instance.put('auth/me',{name} )
     },
     updateUserAvatar(avatar: string) {
         return instance.put('auth/me',{avatar} )
+    }*/
+    updateUserData(name:string, avatar: string) {
+        return instance.put('auth/me', {name,avatar })
     }
 }
 

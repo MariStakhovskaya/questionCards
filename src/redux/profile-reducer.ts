@@ -14,19 +14,22 @@ const initialState = {
     error: ''}
 }
 type InitialStateType = typeof initialState
-type ActionTypes = UpdateUserDateType | UpdateUserAvatarType | SetUserDataType
+type ActionTypes = UpdateUserDataType  | SetUserDataType
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
     debugger
     switch (action.type) {
         case "login/SET_USER":
             return {...state,
-        userData: action.payload
+        ... action.payload
             }
-       /* case 'UPDATE-USER-NAME':
-            return {...state.userData, name: action.payload }
-        case 'UPDATE-USER-AVATAR':
-            return {...state, avatar: action.avatar}*/
+        case "UPDATE-USER-DATA":
+            return {...state,
+                userData:{...state.userData,...action.payload}}
+        /* case 'UPDATE-USER-NAME':
+             return {...state, ...action.payload }
+         case 'UPDATE-USER-AVATAR':
+             return {...state, ...action.payload}*/
         default:
             return state
     }
@@ -35,24 +38,37 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 
 export const setUserDataAC = (userData: LoginResponseType) => ({
     type: 'login/SET_USER',
-    payload: {...userData}
+    payload: {userData}
 } as const)
 
-export const updateUserDateAC = (name: string) => ({
+export const updateUserDateAC = (name: string, avatar: string) => ({
+    type: 'UPDATE-USER-DATA',
+    payload: {name,avatar}
+} as const)
+
+/*export const updateUserDateAC = (name: string) => ({
     type: 'UPDATE-USER-NAME',
     payload: {name}} as const)
 
 export const updateUserAvatarAC = (avatar: string) => ({
-    type: 'UPDATE-USER-AVATAR', avatar} as const)
+    type: 'UPDATE-USER-AVATAR',
+    payload: {avatar}} as const)*/
 
 
 // thunk
 
-export const updateUserDateTC = (name: string) => (dispatch: Dispatch<ActionTypes>) => {
+export const updateUserDateTC = (name:string, avatar: string) => (dispatch: Dispatch<ActionTypes>) => {
+    authAPI.updateUserData(name, avatar)
+        .then((res)=>{
+            dispatch(updateUserDateAC(res.data.name, res.data.avatar))
+        })
+}
+
+/*export const updateUserDateTC = (name: string) => (dispatch: Dispatch<ActionTypes>) => {
     debugger
     authAPI.updateUserData(name)
         .then((res)=>{
-            debugger
+
             console.log(res.data)
             dispatch(updateUserDateAC(res.data.name))
         })
@@ -65,12 +81,12 @@ export const updateUserAvatarTC = (avatar: string) => (dispatch: Dispatch<Action
             console.log(res.data)
             dispatch(updateUserAvatarAC(res.data.avatar))
         })
-}
+}*/
 
 
 
 //type
 
-export type UpdateUserDateType = ReturnType<typeof updateUserDateAC>
-export type UpdateUserAvatarType = ReturnType<typeof updateUserAvatarAC>
+/*export type UpdateUserDateType = ReturnType<typeof updateUserDateAC>*/
+export type UpdateUserDataType = ReturnType<typeof updateUserDateAC>
 export type SetUserDataType = ReturnType<typeof setUserDataAC>
