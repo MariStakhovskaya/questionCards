@@ -1,6 +1,6 @@
 
 import React, { ChangeEvent, useState } from 'react';
-import {updateUserDateTC} from "../redux/profile-reducer";
+import {updateUserDateTC} from "../features/Profile/profile-reducer";
 import {useDispatch} from "react-redux";
 
 

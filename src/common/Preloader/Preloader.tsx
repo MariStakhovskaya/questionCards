@@ -1,6 +1,6 @@
 import React from 'react';
 import preloader from './Ellipsis.gif'
-import style from '../App.module.css'
+import style from '../../App.module.css'
 
 
 

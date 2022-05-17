@@ -1,7 +1,7 @@
 import { Dispatch} from "redux";
-import {authAPI, LoginParamsType} from "../api/cards-api";
-import {setStatusAC, SetStatusACType} from "./app-reducer";
-import {setUserDataAC, SetUserDataType} from "./profile-reducer";
+import {authAPI, LoginParamsType} from "../../api/cards-api";
+import {setStatusAC, SetStatusACType} from "../../redux/app-reducer";
+import {setUserDataAC, SetUserDataType} from "../Profile/profile-reducer";
 
 
 const initialState = {

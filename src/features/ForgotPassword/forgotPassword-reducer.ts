@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/cards-api";
-import {isError} from "./login-reducer";
-import {setStatusAC} from "./app-reducer";
+import {authAPI} from "../../api/cards-api";
+import {isError} from "../Login/login-reducer";
+import {setStatusAC} from "../../redux/app-reducer";
 
 const initialState = {
     email:'',

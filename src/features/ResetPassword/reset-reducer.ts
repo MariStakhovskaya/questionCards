@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/cards-api";
+import {authAPI} from "../../api/cards-api";
 
 const initialState = {
  isSendPassword: false
@@ -16,7 +16,6 @@ export const resetReducer = (state: InitialStateType = initialState, action: Act
     }
 }
 // actions
-
 export const createNewPasswordAC = (isSendPassword: boolean) => ({
     type:  "CREATE-NEW-PASSWORD",
     payload: {isSendPassword} }as const)

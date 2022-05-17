@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import image404 from './404.png'
+import image404 from '../assets/404.png'
 import style from './Error404.module.css'
 
 

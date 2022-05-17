@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import style from '../../App.module.css';
 import {Navigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {createNewPasswordTC} from "../../redux/reset-reducer";
+import {createNewPasswordTC} from "./reset-reducer";
 import {AppRootState} from "../../redux/store";
 
 

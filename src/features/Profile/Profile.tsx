@@ -1,12 +1,12 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import '../../App.module.css';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../redux/store";
-import {logoutTC} from "../../redux/login-reducer";
+import {logoutTC} from "../Login/login-reducer";
 import { Navigate } from 'react-router-dom';
-import { updateUserDateTC} from "../../redux/profile-reducer";
+import { updateUserDateTC} from "./profile-reducer";
 import {EditableSpan} from "../../common/EditableSpan";
-import Preloader from "../../common/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 
 
 

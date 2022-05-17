@@ -1,21 +1,16 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import style from '../../App.module.css';
 import {useDispatch, useSelector} from "react-redux";
-import {loginTC} from "../../redux/login-reducer";
+import {loginTC} from "./login-reducer";
 import {AppRootState} from "../../redux/store";
 import {Link, Navigate} from 'react-router-dom';
-import Preloader from "../../common/Preloader";
+import Preloader from "../../common/Preloader/Preloader";
 
 
 function Login() {
 
-
-    useEffect(()=>{
-
-    },[])
-
     const [email, setEmail] = useState('maria.stachovski.de@gmail.com')
-    const [password, setPassword] = useState('12341234M')
+    const [password, setPassword] = useState('123456780')
     const [rememberMe, setRememberMe] = useState(false)
 
     const dispatch = useDispatch()
@@ -47,7 +42,8 @@ function Login() {
             {status === 'loading' && <Preloader/>}
             <div className={style.formBlockInput}>
                 <input className={style.defaultInput} value={email} onChange={onChangeInputHandler}/>
-                <input className={style.defaultInput} type={"password"} value={password} onChange={onChangeInputPassHandler}/>
+                <input className={style.defaultInput} type={"password"} value={password}
+                       onChange={onChangeInputPassHandler}/>
                 <div className={style.error}>{isError}</div>
                 <label>
                     <input type={"checkbox"} name="RememberMe" onChange={onChangeInputCheckbox}/>RememberMe

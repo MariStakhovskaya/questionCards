@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from '../../App.module.css';
 import {Link, Navigate} from "react-router-dom";
-import {forgotPasswordTC} from "../../redux/forgotPassword-reducer";
+import {forgotPasswordTC} from "./forgotPassword-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../redux/store";
-import logoEmail from "../../common/4698238.png";
+import logoEmail from "../../common/assets/4698238.png";
 
 
 function ForgotPassword() {
@@ -34,7 +34,7 @@ function ForgotPassword() {
                     <div className={style.titleFormBlock}>
                         <h4>Cards Project</h4>
                         <h4>Check Email</h4>
-                        <div><img className={style.checkEmail} src={logoEmail}/></div>
+                        <div><img className={style.checkEmail} src={logoEmail} alt={'email'}/></div>
                     </div>
 
                     <div className={style.footerFormBlock}>

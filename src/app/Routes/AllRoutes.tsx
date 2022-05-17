@@ -3,7 +3,7 @@ import Profile from "../../features/Profile/Profile";
 import Login from "../../features/Login/Login";
 import Registration from "../../features/Registration/Registration";
 import Reset from "../../features/ResetPassword/Reset";
-import Error404 from "../../common/Page404";
+import Error404 from "../../common/Error404/Page404";
 import React from "react";
 import ForgotPassword from "../../features/ForgotPassword/ForgotPassword";
 

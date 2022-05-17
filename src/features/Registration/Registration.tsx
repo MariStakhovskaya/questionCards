@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from '../../App.module.css';
-import {registrationTC} from "../../redux/regist-reducer";
+import {registrationTC} from "./regist-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../redux/store";
 import { Navigate } from 'react-router-dom';
-import {isError} from "../../redux/login-reducer";
+import {isError} from "../Login/login-reducer";
 
 function Registration() {
 

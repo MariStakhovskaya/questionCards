@@ -1,8 +1,8 @@
 
 import { Dispatch } from "redux";
 import {authAPI} from "../api/cards-api";
-import {isLoggedInAC} from "./login-reducer";
-import {setUserDataAC} from "./profile-reducer";
+import {isLoggedInAC} from "../features/Login/login-reducer";
+import {setUserDataAC} from "../features/Profile/profile-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
