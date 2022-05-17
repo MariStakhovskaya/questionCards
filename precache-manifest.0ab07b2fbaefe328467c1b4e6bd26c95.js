@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "3d131cc3f7df9f501270",
+    "revision": "f6a1b7694b668b3d13fd",
     "url": "/questionCards/static/css/main.59851f9e.chunk.css"
   },
   {
-    "revision": "3d131cc3f7df9f501270",
-    "url": "/questionCards/static/js/main.fa2dc762.chunk.js"
+    "revision": "f6a1b7694b668b3d13fd",
+    "url": "/questionCards/static/js/main.97599749.chunk.js"
   },
   {
     "revision": "aab896a92949507058c3",
     "url": "/questionCards/static/js/runtime~main.c1b778cd.js"
   },
   {
-    "revision": "32ef6542c5338783a662",
-    "url": "/questionCards/static/js/2.e5d68ee3.chunk.js"
+    "revision": "e0902567ab9ebeba102c",
+    "url": "/questionCards/static/js/2.6bc6e950.chunk.js"
   },
   {
     "revision": "b61d7e105384ced4ef5b",
@@ -32,7 +32,7 @@ self.__precacheManifest = [
     "url": "/questionCards/static/media/4698238.068caec9.png"
   },
   {
-    "revision": "33d1f3ba8932e0cb8459a8d86541618e",
+    "revision": "225a98e18e9d61d67002631eb9ac7eec",
     "url": "/questionCards/index.html"
   }
 ];
