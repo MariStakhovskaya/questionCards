@@ -17,12 +17,12 @@ function Reset() {
         setPassword(e.currentTarget.value)
     }
 
-    const { token } = useParams<{token: string}>()
+    const {resetPasswordToken} = useParams<{resetPasswordToken:string}>()
 
     const onClickHandler = () =>{
         debugger
-        if (token){
-            dispatch<any>(createNewPasswordTC(password,token))
+        if (resetPasswordToken){
+            dispatch<any>(createNewPasswordTC(password,resetPasswordToken))
         }
     }
 

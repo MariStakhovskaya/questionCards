@@ -34,8 +34,8 @@ export const authAPI = {
                 message: `<div style="background-color: #d0eca1; padding: 20px; border-radius: 15px">This is a password recovery link: <a href='https://MariStakhovskaya.github.io/questionCards/#/reset/$token$'>link</a></div>`
         })
     },
-    createNewPassword(password: string, token: string){
-        return instance.post('/auth/set-new-password',{password, token})
+    createNewPassword(password: string, resetPasswordToken: string){
+        return instance.post('/auth/set-new-password',{password, resetPasswordToken})
     }
 }
 
