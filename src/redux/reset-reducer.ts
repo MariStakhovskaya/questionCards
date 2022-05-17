@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {authAPI} from "../api/cards-api";
 
 const initialState = {
- password:''
+ isSendPassword: false
 }
 type InitialStateType = typeof initialState
 type ActionTypes = CreateNewPasswordType
@@ -17,15 +17,16 @@ export const resetReducer = (state: InitialStateType = initialState, action: Act
 }
 // actions
 
-export const createNewPasswordAC = (password: string) => ({
+export const createNewPasswordAC = (isSendPassword: boolean) => ({
     type:  "CREATE-NEW-PASSWORD",
-    payload: {password} }as const)
+    payload: {isSendPassword} }as const)
 
 // thunk
 
 export const createNewPasswordTC = (password: string, token: string) => (dispatch: Dispatch) => {
     authAPI.createNewPassword(password, token)
         .then(res => {
+            dispatch(createNewPasswordAC(true))
             console.log(res.data)
         })
 }
