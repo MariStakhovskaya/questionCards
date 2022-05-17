@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI, LoginResponseType} from "../api/cards-api";
+import {setStatusAC, SetStatusACType} from "./app-reducer";
 
 const initialState = {
     userData: {
@@ -25,12 +26,8 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
             }
         case "UPDATE-USER-DATA":
             return {...state,
-                userData:{...state.userData,...action.payload}}
-
-        /* case 'UPDATE-USER-NAME':
-             return {...state, ...action.payload }
-         case 'UPDATE-USER-AVATAR':
-             return {...state, ...action.payload}*/
+                userData:{...state.userData,
+                    ...action.payload}}
         default:
             return state
     }
@@ -47,49 +44,21 @@ export const updateUserDateAC = (name: string, avatar: string) => ({
     payload: {name,avatar}
 } as const)
 
-/*export const updateUserDateAC = (name: string) => ({
-    type: 'UPDATE-USER-NAME',
-    payload: {name}} as const)
-
-export const updateUserAvatarAC = (avatar: string) => ({
-    type: 'UPDATE-USER-AVATAR',
-    payload: {avatar}} as const)*/
-
 
 // thunk
 
-export const updateUserDateTC = (name:string, avatar: string) => (dispatch: Dispatch<ActionTypes>) => {
+export const updateUserDateTC = (name:string, avatar: string) => (dispatch: Dispatch<ActionTypes | SetStatusACType>) => {
+    dispatch(setStatusAC('loading'))
     authAPI.updateUserData(name, avatar)
         .then((res)=>{
             console.log(res.data.updatedUser)
             dispatch(updateUserDateAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
-
+            dispatch(setStatusAC('succeeded'))
         })
 }
-
-/*export const updateUserDateTC = (name: string) => (dispatch: Dispatch<ActionTypes>) => {
-    debugger
-    authAPI.updateUserData(name)
-        .then((res)=>{
-
-            console.log(res.data)
-            dispatch(updateUserDateAC(res.data.name))
-        })
-}
-
-export const updateUserAvatarTC = (avatar: string) => (dispatch: Dispatch<ActionTypes>) => {
-
-    authAPI.updateUserAvatar(avatar)
-        .then((res)=>{
-            console.log(res.data)
-            dispatch(updateUserAvatarAC(res.data.avatar))
-        })
-}*/
-
 
 
 //type
 
-/*export type UpdateUserDateType = ReturnType<typeof updateUserDateAC>*/
 export type UpdateUserDataType = ReturnType<typeof updateUserDateAC>
 export type SetUserDataType = ReturnType<typeof setUserDataAC>

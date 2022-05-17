@@ -6,6 +6,7 @@ import {logoutTC} from "../../redux/login-reducer";
 import { Navigate } from 'react-router-dom';
 import { updateUserDateTC} from "../../redux/profile-reducer";
 import {EditableSpan} from "../../common/EditableSpan";
+import Preloader from "../../common/Preloader";
 
 
 
@@ -22,15 +23,16 @@ import {EditableSpan} from "../../common/EditableSpan";
      const userName = useSelector<AppRootState, string>(state => state.profile.userData.name)
      const userAvatar = useSelector<AppRootState, string>(state => state.profile.userData.avatar)
      const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
+     const status = useSelector<AppRootState, string>(state => state.app.status)
 
      let [name, setName] = useState(userName);
      let [avatar, setAvatar] = useState(userAvatar);
 
 
 
-     let [edit, setEdit] = useState(false);
+   /*  let [edit, setEdit] = useState(false);
      let [editName, setEditName] = useState(false);
-
+*/
 
      const dispatch = useDispatch()
 
@@ -77,7 +79,7 @@ import {EditableSpan} from "../../common/EditableSpan";
 
      return (
          <div className="Profile">
-
+             {status === 'loading' && <Preloader/>}
              <img src={avatar} alt={''}/>
              <br/>
              avatar url:  <EditableSpan value={avatar}  onChange={setAvatar} />

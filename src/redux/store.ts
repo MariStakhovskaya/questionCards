@@ -5,6 +5,7 @@ import {appReducer} from "./app-reducer";
 import {loginReducer} from "./login-reducer";
 import {profileReducer} from "./profile-reducer";
 import {resetReducer} from "./reset-reducer";
+import {forgotPasswordReducer} from "./forgotPassword-reducer";
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     login:loginReducer,
     profile: profileReducer,
     reset: resetReducer,
+    forgot: forgotPasswordReducer
 })
 // определить автоматически тип всего объекта состояния
 export type AppRootState = ReturnType<typeof rootReducer>

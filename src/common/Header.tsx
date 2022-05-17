@@ -10,6 +10,7 @@ function Header() {
                 <Link to={"/login"}>Login</Link>
                 <Link to={"/profile"}>Profile</Link>
                 <Link to={"/registration"}>Registration</Link>
+                <Link to={"/forgot"}>ForgotPassword</Link>
                 <Link to={"/reset"}>Reset</Link>
             </nav>
         </div>

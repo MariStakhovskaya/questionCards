@@ -4,12 +4,14 @@ import {registrationTC} from "../../redux/regist-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../redux/store";
 import { Navigate } from 'react-router-dom';
+import {isError} from "../../redux/login-reducer";
 
 function Registration() {
 
     const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [password1, setPassword1] = useState('')
 
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
     const error = useSelector<AppRootState, string>(state => state.login.error)
@@ -22,9 +24,17 @@ function Registration() {
     const onChangeHandlerPass = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
     }
+    const onChangeHandlerPass1 = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword1(e.currentTarget.value)
+    }
 
 const onClickHandler = () => {
-    dispatch<any>(registrationTC(email,password))
+        if (password != password1){
+            dispatch(isError('Password is not correct'))
+        } else {
+            dispatch<any>(registrationTC(email,password))
+        }
+
 }
 
     return (
@@ -33,10 +43,11 @@ const onClickHandler = () => {
                 <h5>Cards Project</h5>
                 <h5>Registration</h5>
             </div>
-<div> <input value={email} onChange={onChangeHandlerEmail}  />
-    <input value={password} onChange={onChangeHandlerPass}   />
-    {error ? error : ''}
-    {/*<input type={"password"} value={password} onChange={()=>{}}/>*/}
+<div> email:<input className={style.defaultInput} value={email} onChange={onChangeHandlerEmail}  />
+   password: <input className={style.defaultInput} value={password} onChange={onChangeHandlerPass}   />
+    password: <input className={style.defaultInput} value={password1} onChange={onChangeHandlerPass1}   />
+    <div className={style.error}>{error ? error : ''}</div>
+
     <button className={style.defaultButton} onClick={onClickHandler}>Register</button></div>
 
             <div className={style.footerFormBlock}>

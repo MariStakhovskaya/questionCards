@@ -5,6 +5,8 @@ import Registration from "../../features/Registration/Registration";
 import Reset from "../../features/ResetPassword/Reset";
 import Error404 from "../../common/Page404";
 import React from "react";
+import ForgotPassword from "../../features/ForgotPassword/ForgotPassword";
+
 
 export const AllRoutes = () => {
     return (
@@ -13,6 +15,7 @@ export const AllRoutes = () => {
         <Route path="login" element={<Login/>}/>
         <Route path="profile" element={<Profile/>}/>
         <Route path="registration" element={<Registration/>}/>
+        <Route path="forgot" element={<ForgotPassword />}/>
         <Route path="reset" element={<Reset/>}/>
         <Route path="/404" element={<Error404/>}/>
         <Route path="*" element={<Navigate to="/404"/>}/>
