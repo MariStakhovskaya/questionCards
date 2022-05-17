@@ -16,7 +16,7 @@ export const AllRoutes = () => {
         <Route path="profile" element={<Profile/>}/>
         <Route path="registration" element={<Registration/>}/>
         <Route path="forgot" element={<ForgotPassword />}/>
-        <Route path="reset" element={<Reset/>}/>
+        <Route path="reset" element={<Reset />}/>
         <Route path="/404" element={<Error404/>}/>
         <Route path="*" element={<Navigate to="/404"/>}/>
     </Routes>)

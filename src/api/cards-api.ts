@@ -31,7 +31,7 @@ export const authAPI = {
     forgotPassword(email: string) {
             return instance.post<ForgotDataType>('/auth/forgot', {
             email, from: '<maryia.jegorova@gmail.com>',
-                message: `<div style="background-color: #d0eca1; padding: 20px; border-radius: 15px">This is a password recovery link: <a href=<a href='http://localhost:3000/#/reset/$token$'>>link</a></div>`
+                message: `<div style="background-color: #d0eca1; padding: 20px; border-radius: 15px">This is a password recovery link: <a href='https://maristakhovskaya.github.io/#/reset/$token$'>>link</a></div>`
         })
     },
     createNewPassword(password: string, token: string){
