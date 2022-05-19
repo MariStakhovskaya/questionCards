@@ -85,6 +85,11 @@
   outline: 0;
 }
 
+.labelInput {
+  margin-left: 15px;
+  font-size: 16px;
+}
+
 button:hover {
   background-color: rgba(48, 9, 222, 0.6);
 

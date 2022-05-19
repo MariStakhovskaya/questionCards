@@ -47,7 +47,8 @@ function ForgotPassword() {
                        <Logo />
                         <h4>Forgot your password?</h4>
                     </div>
-                    <div> email:<input className={style.defaultInput} value={email} onChange={onChangeHandlerEmail}/>
+                    <div className={style.formBlockInput}>
+                        <input className={style.defaultInput} placeholder={'Email'} value={email} onChange={onChangeHandlerEmail}/>
 
                         <div>Enter your email address and we will send you further instructions</div>
                         <div className={style.error}>{isError}</div>

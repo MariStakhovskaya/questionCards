@@ -1,8 +1,7 @@
-import { Dispatch } from "redux";
 import {authAPI} from "../api/cards-api";
 import {isLoggedInAC} from "../features/Login/login-reducer";
 import {setUserDataAC} from "../features/Profile/profile-reducer";
-import {AppActionsType} from "../redux/store";
+import {AppActionsType, AppThunkType} from "../redux/store";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -15,7 +14,7 @@ type InitialStateType = typeof initialState
 
 export const appReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
-        case "APP/SET-IS-INITIALIZED":
+        case 'APP/SET-IS-INITIALIZED':
             return {...state, isInitialized: action.isInitialized}
         case 'APP/SET-STATUS':
             return {...state, status: action.status}
@@ -30,19 +29,31 @@ export const setStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATU
 
 
 // thunk
-export const initializeAppTC = () => (dispatch: Dispatch<AppActionsType>) => {
+/*export const initializeAppTC = (): AppThunkType => (dispatch) => {
     authAPI.authMe().then(res => {
         if (res.status === 200) {
             dispatch(setUserDataAC(res.data.data))
             dispatch(isLoggedInAC(true))
         } else {
-
         }
     })
         .finally(() => {
             dispatch(setIsInitializedAC(true));
         })
-}
+}*/
+
+export const initializeAppTC = (): AppThunkType => async dispatch => {
+    try{
+        const res = await authAPI.authMe()
+        dispatch(setUserDataAC(res.data.data))
+        dispatch(isLoggedInAC(true))
+        dispatch(setIsInitializedAC(true));
+    }
+
+   catch (e) {
+       dispatch(setIsInitializedAC(true));
+   }
+    }
 
 
 

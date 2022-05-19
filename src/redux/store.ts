@@ -1,5 +1,5 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunk from "redux-thunk";
+import thunk, { ThunkAction } from "redux-thunk";
 import {appReducer, AppReducerActionType} from "../app/app-reducer";
 import {LoginActionsType, loginReducer} from "../features/Login/login-reducer";
 import {ProfileActionTypes, profileReducer} from "../features/Profile/profile-reducer";
@@ -20,6 +20,9 @@ const rootReducer = combineReducers({
 export type AppRootState = ReturnType<typeof rootReducer>
 // Типизация экшн для всего апп
 export type AppActionsType = LoginActionsType | ProfileActionTypes | AppReducerActionType | ForgotPasswordActionsType | RegistrationActionsType | NewPasswordActionTypes
+
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, AppActionsType>
+
 
 // непосредственно создаём store
 export const store = createStore(rootReducer, applyMiddleware(thunk))

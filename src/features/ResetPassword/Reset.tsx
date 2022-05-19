@@ -33,7 +33,8 @@ function Reset() {
                 <Logo />
                 <h5>Create new password</h5>
             </div>
-            <div> New password:<input className={style.defaultInput} value={password} onChange={onChangeHandlerPassword}  />
+            <div className={style.formBlockInput}>
+                <input className={style.defaultInput} placeholder={'New password'} value={password} onChange={onChangeHandlerPassword}  />
 
                 <div>Create new password and we will send you further instructions to email </div>
 

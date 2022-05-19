@@ -44,13 +44,20 @@ const onClickHandler = () => {
               <Logo/>
                 <h4>Registration</h4>
             </div>
-<div> email:<input className={style.defaultInput} value={email} onChange={onChangeHandlerEmail}  />
-   password: <input className={style.defaultInput} value={password} onChange={onChangeHandlerPass}   />
-    password: <input className={style.defaultInput} value={password1} onChange={onChangeHandlerPass1}   />
+            <div className={style.formBlockInput}>
+
+ <input className={style.defaultInput} value={email} placeholder={'Email'} onChange={onChangeHandlerEmail}  />
+
+
+    <input className={style.defaultInput} value={password} placeholder={'Password'} onChange={onChangeHandlerPass}   />
+
+
+                <input className={style.defaultInput} placeholder={'Confirm password'} value={password1} onChange={onChangeHandlerPass1}   />
+
     <div className={style.error}>{error ? error : ''}</div>
 
-    <button className={style.defaultButton} onClick={onClickHandler}>Register</button></div>
-
+    <button className={style.defaultButton} onClick={onClickHandler}>Register</button>
+            </div>
             <div className={style.footerFormBlock}>
 
             </div>
