@@ -5,6 +5,7 @@ import {forgotPasswordTC} from "./forgotPassword-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../redux/store";
 import logoEmail from "../../common/assets/4698238.png";
+import Logo from "../../common/Logo";
 
 
 function ForgotPassword() {
@@ -32,7 +33,7 @@ function ForgotPassword() {
         <div>
             {isSendInstructionAC ? <div className={style.formBlock}>
                     <div className={style.titleFormBlock}>
-                        <h4>Cards Project</h4>
+                        <Logo />
                         <h4>Check Email</h4>
                         <div><img className={style.checkEmail} src={logoEmail} alt={'email'}/></div>
                     </div>
@@ -43,7 +44,7 @@ function ForgotPassword() {
                 </div>
                 : <div className={style.formBlock}>
                     <div className={style.titleFormBlock}>
-                        <h4>Cards Project</h4>
+                       <Logo />
                         <h4>Forgot your password?</h4>
                     </div>
                     <div> email:<input className={style.defaultInput} value={email} onChange={onChangeHandlerEmail}/>

@@ -5,6 +5,7 @@ import {loginTC} from "./login-reducer";
 import {AppRootState} from "../../redux/store";
 import {Link, Navigate} from 'react-router-dom';
 import Preloader from "../../common/Preloader/Preloader";
+import Logo from "../../common/Logo";
 
 
 function Login() {
@@ -36,8 +37,8 @@ function Login() {
     return (
         <div className={style.formBlock}>
             <div className={style.titleFormBlock}>
-                <h4>Cards Project</h4>
-                <h4>Login</h4>
+                    <Logo/>
+                <h3>Login</h3>
             </div>
             {status === 'loading' && <Preloader/>}
             <div className={style.formBlockInput}>

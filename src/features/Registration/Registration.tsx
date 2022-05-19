@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../redux/store";
 import { Navigate } from 'react-router-dom';
 import {isError} from "../Login/login-reducer";
+import Logo from "../../common/Logo";
 
 function Registration() {
 
@@ -40,8 +41,8 @@ const onClickHandler = () => {
     return (
         <div className={style.formBlock}>
             <div className={style.titleFormBlock}>
-                <h5>Cards Project</h5>
-                <h5>Registration</h5>
+              <Logo/>
+                <h4>Registration</h4>
             </div>
 <div> email:<input className={style.defaultInput} value={email} onChange={onChangeHandlerEmail}  />
    password: <input className={style.defaultInput} value={password} onChange={onChangeHandlerPass}   />

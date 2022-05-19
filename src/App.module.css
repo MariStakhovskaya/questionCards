@@ -23,18 +23,7 @@
   color: white;
 }
 
-.headerContainer {
 
-}
-
-.headerMenu a {
-  margin-left: 15px;
-  text-decoration: none;
-  color: white;
-}
-.headerMenu a:hover {
-  color: darkgoldenrod;
-}
 
 .formBlock {
   display: flex;
@@ -48,8 +37,13 @@
   width: 350px;
   height: 600px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
-
 }
+.titleFormBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .formBlockInput {
   display: flex;
   flex-direction: column;
@@ -107,7 +101,17 @@ button:hover {
 }
 
 .checkEmail {
-  width: 80px;
+  width: 70px;
+}
+
+.logo {
+  width: 70%
+}
+
+@media screen and (max-width: 576px){
+  .mainBlock {
+    font-size: 14px;
+  }
 }
 
 

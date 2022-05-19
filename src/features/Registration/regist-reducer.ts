@@ -1,6 +1,8 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../../api/cards-api";
 import {isError, isLoggedInAC} from "../Login/login-reducer";
+import {AppActionsType} from "../../redux/store";
+import {setStatusAC} from "../../app/app-reducer";
 
 const initialState = {
     email: '',
@@ -9,9 +11,9 @@ const initialState = {
 }
 
 type InitialStateType = typeof initialState
-type ActionsType = registrationACType
 
-export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+
+export const loginReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
 
     switch (action.type) {
         case "REGISTRATION":
@@ -26,16 +28,14 @@ export const registrationAC = (email: string, password: string) => (
     {type: 'REGISTRATION', email, password} as const)
 
 
-//type
-export type registrationACType = ReturnType<typeof registrationAC>
-
-
 // thunk
 
-export const registrationTC = (email: string, password: string) => (dispatch: Dispatch<registrationACType | isLoggedInAC | isError>) => {
+export const registrationTC = (email: string, password: string) => (dispatch: Dispatch<AppActionsType>) => {
+    dispatch(setStatusAC('loading'))
     authAPI.registration(email, password)
         .then((res) => {
             console.log(res.data.addedUser)
+            dispatch(setStatusAC('succeeded'))
             dispatch(isLoggedInAC(true))
         })
         .catch(err => {
@@ -44,8 +44,13 @@ export const registrationTC = (email: string, password: string) => (dispatch: Di
                 : (err.message + ', more details in the console');
             console.log(error)
             dispatch(isError(error))
+            dispatch(setStatusAC('failed'))
         })
 }
+
+//type
+export type RegistrationActionsType = RegistrationType
+export type RegistrationType = ReturnType<typeof registrationAC>
 
 
 

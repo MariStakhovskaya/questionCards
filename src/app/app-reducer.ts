@@ -1,8 +1,8 @@
-
 import { Dispatch } from "redux";
 import {authAPI} from "../api/cards-api";
 import {isLoggedInAC} from "../features/Login/login-reducer";
 import {setUserDataAC} from "../features/Profile/profile-reducer";
+import {AppActionsType} from "../redux/store";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -12,9 +12,8 @@ const initialState = {
 }
 type InitialStateType = typeof initialState
 
-type ActionType = SetStatusACType | SetIsInitializedACType
 
-export const appReducer = (state: InitialStateType = initialState, action: ActionType): InitialStateType => {
+export const appReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case "APP/SET-IS-INITIALIZED":
             return {...state, isInitialized: action.isInitialized}
@@ -25,20 +24,16 @@ export const appReducer = (state: InitialStateType = initialState, action: Actio
     }
 }
 // actions
-
-
 export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-IS-INITIALIZED', isInitialized} as const)
 export const setStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const)
 
 
 
 // thunk
-export const initializeAppTC = () => (dispatch: Dispatch) => {
+export const initializeAppTC = () => (dispatch: Dispatch<AppActionsType>) => {
     authAPI.authMe().then(res => {
-        debugger
         if (res.status === 200) {
-            // @ts-ignore
-            dispatch(setUserDataAC(res.data))
+            dispatch(setUserDataAC(res.data.data))
             dispatch(isLoggedInAC(true))
         } else {
 
@@ -52,6 +47,8 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
 
 
 //type
+export type AppReducerActionType = SetStatusACType | SetIsInitializedACType
+
 export type SetIsInitializedACType = ReturnType<typeof setIsInitializedAC>
 export type SetStatusACType = ReturnType<typeof setStatusAC>
 

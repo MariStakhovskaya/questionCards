@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../../api/cards-api";
 import {isError} from "../Login/login-reducer";
-import {setStatusAC} from "../../redux/app-reducer";
+import {setStatusAC} from "../../app/app-reducer";
+import {AppActionsType} from "../../redux/store";
 
 const initialState = {
     email:'',
@@ -9,7 +10,7 @@ const initialState = {
 }
 type InitialStateType = typeof initialState
 
-export const forgotPasswordReducer = (state: InitialStateType = initialState, action: ForgotPasswordType | IsSendInstructionACType): InitialStateType => {
+export const forgotPasswordReducer = (state: InitialStateType = initialState, action:AppActionsType): InitialStateType => {
     switch (action.type) {
         case 'FORGOT-PASSWORD':
             return {...state, ... action.payload}
@@ -23,7 +24,7 @@ export const forgotPasswordReducer = (state: InitialStateType = initialState, ac
 
 export const forgotPasswordAC = (email: string) => ({
     type: 'FORGOT-PASSWORD',
-        payload: {email} } as const)
+    payload: {email} } as const)
 
 export const isSendInstructionAC = (isSendInstruction: boolean) => ({
     type: 'IS-SEND-INSTRUCTION',
@@ -31,7 +32,7 @@ export const isSendInstructionAC = (isSendInstruction: boolean) => ({
 
 // thunk
 
-export const forgotPasswordTC = (email: string) => ( dispatch: Dispatch) => {
+export const forgotPasswordTC = (email: string) => ( dispatch: Dispatch<AppActionsType>) => {
     dispatch(setStatusAC('loading'))
     authAPI.forgotPassword(email)
         .then(res => {
@@ -50,5 +51,7 @@ export const forgotPasswordTC = (email: string) => ( dispatch: Dispatch) => {
 }
 
 //type
+export type ForgotPasswordActionsType = ForgotPasswordType | IsSendInstructionType
+
 export type ForgotPasswordType = ReturnType<typeof forgotPasswordAC>
-export type IsSendInstructionACType = ReturnType<typeof isSendInstructionAC>
+export type IsSendInstructionType = ReturnType<typeof isSendInstructionAC>

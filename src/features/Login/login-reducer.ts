@@ -1,7 +1,8 @@
 import { Dispatch} from "redux";
 import {authAPI, LoginParamsType} from "../../api/cards-api";
-import {setStatusAC, SetStatusACType} from "../../redux/app-reducer";
-import {setUserDataAC, SetUserDataType} from "../Profile/profile-reducer";
+import {setStatusAC} from "../../app/app-reducer";
+import {setUserDataAC} from "../Profile/profile-reducer";
+import {AppActionsType} from "../../redux/store";
 
 
 const initialState = {
@@ -9,9 +10,9 @@ const initialState = {
          error: ''
 }
 type InitialStateType = typeof initialState
-type ActionsType = isLoggedInAC  | isError
 
-export const loginReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+
+export const loginReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
 
     switch (action.type) {
         case 'login/IS-LOGGED-IN':
@@ -30,14 +31,9 @@ export const isError = (error: string) => (
     {type: 'login/SET_ERROR', error} as const)
 
 
-//type
-export type isLoggedInAC = ReturnType<typeof isLoggedInAC>
-export type isError = ReturnType<typeof isError>
-
 
 // thunk
-
-export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType | SetStatusACType |SetUserDataType>) => {
+export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setStatusAC('loading'))
         authAPI.login(data)
             .then((res) => {
@@ -56,13 +52,25 @@ export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<ActionsTyp
             })
 }
 
-export const logoutTC = () => (dispatch: Dispatch<ActionsType | SetStatusACType>) => {
+export const logoutTC = () => (dispatch: Dispatch<AppActionsType>) => {
     dispatch(setStatusAC('loading'))
     authAPI.logout()
         .then((res)=>{
             dispatch(isLoggedInAC(false))
             dispatch(setStatusAC('succeeded'))
         })
+        .catch(err => {
+            const error = err.response
+                ? err.response.data.error
+                : (err.message + ', more details in the console');
+            dispatch(isError(error))
+            dispatch(setStatusAC('failed'))
+
+        })
 }
 
+//type
+export type LoginActionsType = IsLoggedInType  | IsErrorType
 
+export type IsLoggedInType = ReturnType<typeof isLoggedInAC>
+export type IsErrorType = ReturnType<typeof isError>

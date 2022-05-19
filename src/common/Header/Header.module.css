@@ -1,0 +1,15 @@
+.headerContainer {
+    display: flex;
+    align-items: center;
+    min-height: 70px;
+}
+
+.headerMenu a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: white;
+}
+
+.headerMenu a:hover {
+    color: darkgoldenrod;
+}

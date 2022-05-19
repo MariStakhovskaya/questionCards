@@ -1,6 +1,7 @@
 import React from 'react';
 import style from '../../App.module.css';
 import logoEmail from '../../common/assets/4698238.png'
+import Logo from "../../common/Logo";
 
 
 type CheckEmailPropsType = {
@@ -13,7 +14,7 @@ function CheckEmail(props: CheckEmailPropsType) {
     return (
         <div className={style.formBlock}>
             <div className={style.titleFormBlock}>
-                <h4>Cards Project</h4>
+                <Logo/>
                 <h4>Check Email</h4>
                <div><img className={style.checkEmail} src={logoEmail} alt={'email'}/></div>
 

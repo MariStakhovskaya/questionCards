@@ -4,6 +4,7 @@ import {Navigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createNewPasswordTC} from "./reset-reducer";
 import {AppRootState} from "../../redux/store";
+import Logo from "../../common/Logo";
 
 
 
@@ -29,7 +30,7 @@ function Reset() {
     return (
         <div className={style.formBlock}>
             <div className={style.titleFormBlock}>
-                <h5>Cards Project</h5>
+                <Logo />
                 <h5>Create new password</h5>
             </div>
             <div> New password:<input className={style.defaultInput} value={password} onChange={onChangeHandlerPassword}  />

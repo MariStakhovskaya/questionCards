@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI, LoginResponseType} from "../../api/cards-api";
-import {setStatusAC, SetStatusACType} from "../../redux/app-reducer";
+import {setStatusAC, SetStatusACType} from "../../app/app-reducer";
+import {AppActionsType} from "../../redux/store";
 
 const initialState = {
     userData: {
@@ -15,9 +16,9 @@ const initialState = {
     error: ''}
 }
 type InitialStateType = typeof initialState
-type ActionTypes = UpdateUserDataType  | SetUserDataType
 
-export const profileReducer = (state: InitialStateType = initialState, action: ActionTypes): InitialStateType => {
+
+export const profileReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
     debugger
     switch (action.type) {
         case "login/SET_USER":
@@ -47,7 +48,7 @@ export const updateUserDateAC = (name: string, avatar: string) => ({
 
 // thunk
 
-export const updateUserDateTC = (name:string, avatar: string) => (dispatch: Dispatch<ActionTypes | SetStatusACType>) => {
+export const updateUserDateTC = (name:string, avatar: string) => (dispatch: Dispatch<AppActionsType>) => {
     dispatch(setStatusAC('loading'))
     authAPI.updateUserData(name, avatar)
         .then((res)=>{
@@ -59,6 +60,7 @@ export const updateUserDateTC = (name:string, avatar: string) => (dispatch: Disp
 
 
 //type
+export type ProfileActionTypes = UpdateUserDataType  | SetUserDataType
 
 export type UpdateUserDataType = ReturnType<typeof updateUserDateAC>
 export type SetUserDataType = ReturnType<typeof setUserDataAC>
