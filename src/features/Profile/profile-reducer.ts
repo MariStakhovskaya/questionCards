@@ -1,7 +1,8 @@
 import {Dispatch} from "redux";
 import {authAPI, LoginResponseType} from "../../api/cards-api";
-import {setStatusAC, SetStatusACType} from "../../app/app-reducer";
+import {setStatusAC} from "../../app/app-reducer";
 import {AppActionsType} from "../../redux/store";
+import {isError} from "../Login/login-reducer";
 
 const initialState = {
     userData: {
@@ -23,8 +24,7 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
     switch (action.type) {
         case "login/SET_USER":
             return {...state,
-        ... action.payload
-            }
+        ... action.payload}
         case "UPDATE-USER-DATA":
             return {...state,
                 userData:{...state.userData,
@@ -34,7 +34,6 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
     }
 }
 // actions
-
 export const setUserDataAC = (userData: LoginResponseType) => ({
     type: 'login/SET_USER',
     payload: {userData}
@@ -56,6 +55,15 @@ export const updateUserDateTC = (name:string, avatar: string) => (dispatch: Disp
             dispatch(updateUserDateAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
             dispatch(setStatusAC('succeeded'))
         })
+        .catch(err => {
+            const error = err.response
+                ? err.response.data.error
+                : (err.message + ', more details in the console');
+            dispatch(isError(error))
+            setTimeout(() => {
+                dispatch(isError(''))
+            }, 3000)
+            dispatch(setStatusAC('failed'))})
 }
 
 

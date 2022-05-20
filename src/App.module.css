@@ -8,8 +8,9 @@
 .mainBlock{
   margin: 0 auto;
   width: 100%;
+  max-width: 100vw;
   /*min-width: 400px;*/
-   /*max-width: 960px; */
+   /*max-width: 1260px;*/
   padding: 0 15px;
   height: 100vh;
   background-color: #665468;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import '../../App.module.css';
+import styles from './Profile.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../redux/store";
 import {logoutTC} from "../Login/login-reducer";
@@ -7,11 +8,12 @@ import { Navigate } from 'react-router-dom';
 import { updateUserDateTC} from "./profile-reducer";
 import {EditableSpan} from "../../common/EditableSpan";
 import Preloader from "../../common/Preloader/Preloader";
+import ModalProfile from "./ModalProfile";
 
 
 
  const Profile = React.memo(() => {
-debugger
+
 
      useEffect( () => {
          if (!isLoggedIn){
@@ -27,6 +29,7 @@ debugger
 
      let [name, setName] = useState(userName);
      let [avatar, setAvatar] = useState(userAvatar);
+     const [modalActive, setModalActive] = useState(false)
 
 
      const dispatch = useDispatch<TypeDispatch>()
@@ -36,8 +39,9 @@ debugger
      }
 
 
-     const onChangeUpdateData = () => {
+     const onClickUpdateData = () => {
          dispatch(updateUserDateTC(name,avatar))
+         setModalActive(false)
      }
 
 
@@ -46,17 +50,28 @@ debugger
      }
 
      return (
-         <div className="Profile">
+         <div className={styles.profile}>
              {status === 'loading' && <Preloader/>}
-             <img src={avatar} alt={''}/>
+             <img src={userAvatar} alt={''}/>
              <br/>
-             avatar url:  <EditableSpan value={avatar}  onChange={setAvatar} />
+            avatar URL: {userAvatar}
              <br/>
-             name: <EditableSpan value={name} onChange={setName}/>
-             <button onClick={onChangeUpdateData}>save</button>
+             name: {userName}
+            {/* avatar url:  <EditableSpan value={avatar}  onChange={setAvatar} />
+             <br/>
+             name: <EditableSpan value={name} onChange={setName}/>*/}
+             <br/>
+             <button onClick={()=> setModalActive(true)}>Update Profile</button>
 
              <br/>
              <button onClick={onClickLogoutHandler}>Logout</button>
+             <ModalProfile active={modalActive} setActive={setModalActive}>
+                 avatar url:  <EditableSpan value={avatar}  onChange={setAvatar} />
+                 <br/>
+                 name: <EditableSpan value={name} onChange={setName}/>
+                 <button onClick={onClickUpdateData}>save</button>
+             </ModalProfile>
+
          </div>
      );
  })

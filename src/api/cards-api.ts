@@ -23,10 +23,10 @@ export const authAPI = {
         return instance.delete<logOutType>('auth/me')
     },
     registration(email: string, password: string){
-        return instance.post<RegistrationResponseType>('auth/register', {email, password})
+        return instance.post('auth/register', {email, password})
     },
     updateUserData(name:string, avatar: string) {
-        return instance.put('auth/me', {name,avatar })
+        return instance.put('auth/me', {name,avatar})
     },
     forgotPassword(email: string) {
             return instance.post<ForgotDataType>('/auth/forgot', {
@@ -41,22 +41,7 @@ export const authAPI = {
 
 
 // types
-type RegistrationResponseType = {
-    addedUser: addedUserType
-    error?: string
-}
-type addedUserType = {
-    _id: string,
-    email: string,
-    rememberMe: boolean,
-    isAdmin: boolean,
-    name: string,
-    verified: boolean,
-    publicCardPacksCount: 0,
-    created: string,
-    updated: string,
-    __v: number
-}
+
 
 type logOutType = {
     info: string,
