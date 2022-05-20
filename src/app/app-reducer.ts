@@ -1,5 +1,5 @@
 import {authAPI} from "../api/cards-api";
-import {isError, isLoggedInAC} from "../features/Login/login-reducer";
+import { isLoggedInAC} from "../features/Login/login-reducer";
 import {setUserDataAC} from "../features/Profile/profile-reducer";
 import {AppActionsType, AppThunkType} from "../redux/store";
 

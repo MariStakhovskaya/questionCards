@@ -47,6 +47,9 @@ export const loginTC = (data: LoginParamsType):AppThunkType => (dispatch: Dispat
                         ? err.response.data.error
                         : (err.message + ', more details in the console');
                 dispatch(isError(error))
+                setTimeout(() => {
+                    dispatch(isError(''))
+                }, 3000)
                 dispatch(setStatusAC('failed'))
 
             })

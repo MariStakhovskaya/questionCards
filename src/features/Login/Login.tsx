@@ -1,8 +1,8 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import style from '../../App.module.css';
 
-import {loginTC} from "./login-reducer";
-import {AppRootState} from "../../redux/store";
+import {isError, loginTC} from "./login-reducer";
+import {AppRootState, TypeDispatch} from "../../redux/store";
 import {Link, Navigate} from 'react-router-dom';
 import Preloader from "../../common/Preloader/Preloader";
 import Logo from "../../common/Logo";
@@ -15,13 +15,15 @@ function Login() {
     const [password, setPassword] = useState('123456780')
     const [rememberMe, setRememberMe] = useState(false)
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<TypeDispatch>()
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
     const isError = useSelector<AppRootState, string>(state => state.login.error)
     const status = useSelector<AppRootState, string>(state => state.app.status)
 
+
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.currentTarget.value)
+
     }
     const onChangeInputPassHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setPassword(event.currentTarget.value)
@@ -31,7 +33,8 @@ function Login() {
     }
 
     const onClickButtonHandler = () => {
-        dispatch<any>(loginTC({email, password, rememberMe}))
+        dispatch(loginTC({email, password, rememberMe}))
+
     }
 
 
@@ -46,7 +49,9 @@ function Login() {
                 <input className={style.defaultInput} value={email} onChange={onChangeInputHandler}/>
                 <input className={style.defaultInput} type={"password"} value={password}
                        onChange={onChangeInputPassHandler}/>
+
                 <div className={style.error}>{isError}</div>
+
                 <label className={style.checkbox}>
                     <input type={"checkbox"} name="RememberMe" onChange={onChangeInputCheckbox}/>RememberMe
                 </label>

@@ -44,6 +44,9 @@ export const registrationTC = (email: string, password: string) => (dispatch: Di
                 : (err.message + ', more details in the console');
             console.log(error)
             dispatch(isError(error))
+            setTimeout(() => {
+                dispatch(isError(''))
+            }, 3000)
             dispatch(setStatusAC('failed'))
         })
 }

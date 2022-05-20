@@ -25,9 +25,6 @@ function ForgotPassword() {
 
     }
 
-    /* if(isSendInstructionAC) {
-         return <Navigate to={'/check'}/>
-     }*/
 
     return (
         <div>
