@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "4ce70792abb3bc2c348f",
+    "revision": "8502b624949a468787f4",
     "url": "/questionCards/static/css/main.65433415.chunk.css"
   },
   {
-    "revision": "4ce70792abb3bc2c348f",
-    "url": "/questionCards/static/js/main.cea4b767.chunk.js"
+    "revision": "8502b624949a468787f4",
+    "url": "/questionCards/static/js/main.cd1f3b58.chunk.js"
   },
   {
     "revision": "54e35baa4d5d34787708",
@@ -36,7 +36,7 @@ self.__precacheManifest = [
     "url": "/questionCards/static/media/4698238.068caec9.png"
   },
   {
-    "revision": "aa2a7bdc16bcddedcbc61e05959cb6bb",
+    "revision": "b9bd7ca7771046086215a0a3d2821db4",
     "url": "/questionCards/index.html"
   }
 ];
