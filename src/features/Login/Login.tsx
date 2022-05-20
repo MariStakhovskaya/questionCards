@@ -1,11 +1,12 @@
 import React, {ChangeEvent, useState} from 'react';
 import style from '../../App.module.css';
-import {useDispatch, useSelector} from "react-redux";
+
 import {loginTC} from "./login-reducer";
 import {AppRootState} from "../../redux/store";
 import {Link, Navigate} from 'react-router-dom';
 import Preloader from "../../common/Preloader/Preloader";
 import Logo from "../../common/Logo";
+import {useDispatch, useSelector} from "react-redux";
 
 
 function Login() {
@@ -46,16 +47,16 @@ function Login() {
                 <input className={style.defaultInput} type={"password"} value={password}
                        onChange={onChangeInputPassHandler}/>
                 <div className={style.error}>{isError}</div>
-                <label>
+                <label className={style.checkbox}>
                     <input type={"checkbox"} name="RememberMe" onChange={onChangeInputCheckbox}/>RememberMe
                 </label>
                 <button className={style.defaultButton} onClick={onClickButtonHandler}>Login</button>
 
             </div>
             <div className={style.footerFormBlock}>
-                <div><Link to={"/forgot"}>ForgotPassword</Link></div>
-                <div>Don't have an account?</div>
-                <div>Sign up</div>
+                <p><Link to={"/forgot"}>ForgotPassword</Link></p>
+                <p>Don't have an account?</p>
+                <p><Link to={"/registration"}>Sign up</Link></p>
             </div>
             {isLoggedIn && (<Navigate to={'/profile'}/>)}
 

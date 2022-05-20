@@ -3,7 +3,7 @@ import style from '../../App.module.css';
 import {Navigate, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createNewPasswordTC} from "./reset-reducer";
-import {AppRootState} from "../../redux/store";
+import {AppRootState, TypeDispatch} from "../../redux/store";
 import Logo from "../../common/Logo";
 
 
@@ -12,7 +12,7 @@ function Reset() {
 
     const [password, setPassword] = useState('')
     const isSendPassword = useSelector<AppRootState, boolean>(state => state.reset.isSendPassword)
-        const dispatch = useDispatch()
+        const dispatch = useDispatch<TypeDispatch>()
 
     const onChangeHandlerPassword = (e: ChangeEvent<HTMLInputElement>) => {
         setPassword(e.currentTarget.value)
@@ -23,7 +23,7 @@ function Reset() {
     const onClickHandler = () =>{
         debugger
         if (resetPasswordToken){
-            dispatch<any>(createNewPasswordTC(password,resetPasswordToken))
+            dispatch(createNewPasswordTC(password,resetPasswordToken))
         }
     }
 
@@ -36,7 +36,7 @@ function Reset() {
             <div className={style.formBlockInput}>
                 <input className={style.defaultInput} placeholder={'New password'} value={password} onChange={onChangeHandlerPassword}  />
 
-                <div>Create new password and we will send you further instructions to email </div>
+                <p>Create new password and we will send you further instructions to email </p>
 
                 <button className={style.defaultButton} onClick={onClickHandler}>Create new password</button></div>
             {isSendPassword && (<Navigate to={'/login'}/>)}

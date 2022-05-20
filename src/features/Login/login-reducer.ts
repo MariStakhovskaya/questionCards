@@ -2,7 +2,7 @@ import { Dispatch} from "redux";
 import {authAPI, LoginParamsType} from "../../api/cards-api";
 import {setStatusAC} from "../../app/app-reducer";
 import {setUserDataAC} from "../Profile/profile-reducer";
-import {AppActionsType} from "../../redux/store";
+import {AppActionsType, AppThunkType} from "../../redux/store";
 
 
 const initialState = {
@@ -33,7 +33,7 @@ export const isError = (error: string) => (
 
 
 // thunk
-export const loginTC = (data: LoginParamsType) => (dispatch: Dispatch<AppActionsType>) => {
+export const loginTC = (data: LoginParamsType):AppThunkType => (dispatch: Dispatch<AppActionsType>) => {
         dispatch(setStatusAC('loading'))
         authAPI.login(data)
             .then((res) => {

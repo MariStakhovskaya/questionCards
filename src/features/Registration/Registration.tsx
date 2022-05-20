@@ -2,14 +2,14 @@ import React, {ChangeEvent, useState} from 'react';
 import style from '../../App.module.css';
 import {registrationTC} from "./regist-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "../../redux/store";
+import {AppRootState, TypeDispatch} from "../../redux/store";
 import { Navigate } from 'react-router-dom';
 import {isError} from "../Login/login-reducer";
 import Logo from "../../common/Logo";
 
 function Registration() {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<TypeDispatch>()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [password1, setPassword1] = useState('')
@@ -33,7 +33,7 @@ const onClickHandler = () => {
         if (password != password1){
             dispatch(isError('Password is not correct'))
         } else {
-            dispatch<any>(registrationTC(email,password))
+            dispatch(registrationTC(email,password))
         }
 
 }

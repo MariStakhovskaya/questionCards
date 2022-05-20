@@ -23,14 +23,13 @@ function App() {
 
     return (
         <div className={style.mainBlock}>
-
-            <Header/>
             {!isInitialized && <Preloader/>}
-           <AllRoutes />
-
-            <footer className={style.footerBlock}>
+            <Header/>
+                <AllRoutes />
+                <footer className={style.footerBlock}>
                 @2022 cards training project
-            </footer>
+                </footer>
+
         </div>
     );
 }

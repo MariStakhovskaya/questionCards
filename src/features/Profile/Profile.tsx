@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import '../../App.module.css';
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "../../redux/store";
+import {AppRootState, TypeDispatch} from "../../redux/store";
 import {logoutTC} from "../Login/login-reducer";
 import { Navigate } from 'react-router-dom';
 import { updateUserDateTC} from "./profile-reducer";
@@ -11,7 +11,7 @@ import Preloader from "../../common/Preloader/Preloader";
 
 
  const Profile = React.memo(() => {
-
+debugger
 
      useEffect( () => {
          if (!isLoggedIn){
@@ -34,10 +34,10 @@ import Preloader from "../../common/Preloader/Preloader";
      let [editName, setEditName] = useState(false);
 */
 
-     const dispatch = useDispatch()
+     const dispatch = useDispatch<TypeDispatch>()
 
      const onClickLogoutHandler = () => {
-         dispatch<any>(logoutTC())
+         dispatch(logoutTC())
      }
 
     /* const onChangeEditableSpan = (name: string) => {

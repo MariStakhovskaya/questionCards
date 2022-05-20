@@ -3,7 +3,7 @@ import style from '../../App.module.css';
 import {Link, Navigate} from "react-router-dom";
 import {forgotPasswordTC} from "./forgotPassword-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "../../redux/store";
+import {AppRootState, TypeDispatch} from "../../redux/store";
 import logoEmail from "../../common/assets/4698238.png";
 import Logo from "../../common/Logo";
 
@@ -15,13 +15,13 @@ function ForgotPassword() {
     const isSendInstructionAC = useSelector<AppRootState, boolean>(state => state.forgot.isSendInstruction)
     const isError = useSelector<AppRootState, string>(state => state.login.error)
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<TypeDispatch>()
 
     const onChangeHandlerEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.currentTarget.value)
     }
     const onClickHandler = () => {
-        dispatch<any>(forgotPasswordTC(email))
+        dispatch(forgotPasswordTC(email))
 
     }
 
@@ -50,15 +50,15 @@ function ForgotPassword() {
                     <div className={style.formBlockInput}>
                         <input className={style.defaultInput} placeholder={'Email'} value={email} onChange={onChangeHandlerEmail}/>
 
-                        <div>Enter your email address and we will send you further instructions</div>
+                        <p>Enter your email address and we will send you further instructions</p>
                         <div className={style.error}>{isError}</div>
                         <button className={style.defaultButton} onClick={onClickHandler}>Send instruction</button>
                     </div>
                     {isSendInstructionAC && (<Navigate to={'/check'}/>)}
 
                     <div className={style.footerFormBlock}>
-                        <div>Did you remember your password?</div>
-                        <div><Link to={"/login"}> Try logging in</Link></div>
+                        <p>Did you remember your password?</p>
+                        <p><Link to={"/login"}> Try logging in</Link></p>
                     </div>
                 </div>}
         </div>

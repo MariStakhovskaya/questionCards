@@ -1,5 +1,5 @@
 import {authAPI} from "../api/cards-api";
-import {isLoggedInAC} from "../features/Login/login-reducer";
+import {isError, isLoggedInAC} from "../features/Login/login-reducer";
 import {setUserDataAC} from "../features/Profile/profile-reducer";
 import {AppActionsType, AppThunkType} from "../redux/store";
 
@@ -29,10 +29,11 @@ export const setStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATU
 
 
 // thunk
-/*export const initializeAppTC = (): AppThunkType => (dispatch) => {
+export const initializeAppTC = (): AppThunkType => (dispatch) => {
     authAPI.authMe().then(res => {
         if (res.status === 200) {
-            dispatch(setUserDataAC(res.data.data))
+
+            dispatch(setUserDataAC(res.data))
             dispatch(isLoggedInAC(true))
         } else {
         }
@@ -40,20 +41,27 @@ export const setStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATU
         .finally(() => {
             dispatch(setIsInitializedAC(true));
         })
-}*/
+}
 
-export const initializeAppTC = (): AppThunkType => async dispatch => {
+/*
+export const initializeAppTC = (): AppThunkType => async (dispatch) => {
     try{
         const res = await authAPI.authMe()
-        dispatch(setUserDataAC(res.data.data))
-        dispatch(isLoggedInAC(true))
-        dispatch(setIsInitializedAC(true));
+        if (res.status === 200) {
+            dispatch(setUserDataAC(res.data.data))
+            dispatch(isLoggedInAC(true))
+
+        }
     }
 
    catch (e) {
-       dispatch(setIsInitializedAC(true));
+
    }
+   finally {
+        dispatch(setIsInitializedAC(true));
     }
+    }
+*/
 
 
 

@@ -17,13 +17,13 @@ export const authAPI = {
       return instance.post<LoginResponseType>('/auth/login', {...data})
     },
     authMe(){
-        return instance.post<{data:LoginResponseType}>('/auth/me',{})
+        return instance.post<LoginResponseType>('/auth/me',{})
     },
     logout(){
-        return instance.delete('auth/me')
+        return instance.delete<logOutType>('auth/me')
     },
     registration(email: string, password: string){
-        return instance.post('auth/register', {email, password})
+        return instance.post<RegistrationResponseType>('auth/register', {email, password})
     },
     updateUserData(name:string, avatar: string) {
         return instance.put('auth/me', {name,avatar })
@@ -41,6 +41,27 @@ export const authAPI = {
 
 
 // types
+type RegistrationResponseType = {
+    addedUser: addedUserType
+    error?: string
+}
+type addedUserType = {
+    _id: string,
+    email: string,
+    rememberMe: boolean,
+    isAdmin: boolean,
+    name: string,
+    verified: boolean,
+    publicCardPacksCount: 0,
+    created: string,
+    updated: string,
+    __v: number
+}
+
+type logOutType = {
+    info: string,
+    error: string
+}
 
 export type ForgotDataType = {
     email: string
