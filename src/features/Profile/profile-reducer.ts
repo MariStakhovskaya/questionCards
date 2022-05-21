@@ -20,7 +20,6 @@ type InitialStateType = typeof initialState
 
 
 export const profileReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
-    debugger
     switch (action.type) {
         case "login/SET_USER":
             return {...state,
@@ -51,7 +50,6 @@ export const updateUserDateTC = (name:string, avatar: string) => (dispatch: Disp
     dispatch(setStatusAC('loading'))
     authAPI.updateUserData(name, avatar)
         .then((res)=>{
-            console.log(res.data.updatedUser)
             dispatch(updateUserDateAC(res.data.updatedUser.name, res.data.updatedUser.avatar))
             dispatch(setStatusAC('succeeded'))
         })

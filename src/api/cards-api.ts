@@ -14,7 +14,7 @@ export const instance = axios.create({
 // api
 export const authAPI = {
     login(data: LoginParamsType) {
-      return instance.post<LoginResponseType>('/auth/login', {...data})
+      return instance.post<LoginResponseType>('/auth/login', data)
     },
     authMe(){
         return instance.post<LoginResponseType>('/auth/me',{})
@@ -39,8 +39,42 @@ export const authAPI = {
     }
 }
 
+export const cardsApi = {
+    getPacksList(){
+        return instance.get<PacksListResponseType>('/cards/pack')}
+}
+
 
 // types
+
+type cardType = "pack" | "folder"
+export type CardPacksType = {
+    _id: string,
+    user_id:string,
+cardsCount: number
+created: string
+grade: number // средняя оценка карточек
+more_id: string
+name: string
+path: string // папка
+private: false
+rating: number // лайки
+shots: number // количество попыток
+type: cardType
+updated: string
+user_name: string
+__v: number
+}
+
+
+type PacksListResponseType = {
+    cardPacks:CardPacksType[],
+    cardPacksTotalCount: number // количество колод
+    maxCardsCount: number
+    minCardsCount: number
+    page: number // выбранная страница
+    pageCount: number // количество элементов на странице
+}
 
 
 type logOutType = {

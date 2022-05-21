@@ -12,6 +12,7 @@ function Reset() {
 
     const [password, setPassword] = useState('')
     const isSendPassword = useSelector<AppRootState, boolean>(state => state.reset.isSendPassword)
+    const isError = useSelector<AppRootState, string>(state => state.login.error)
         const dispatch = useDispatch<TypeDispatch>()
 
     const onChangeHandlerPassword = (e: ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +38,7 @@ function Reset() {
                 <input className={style.defaultInput} placeholder={'New password'} value={password} onChange={onChangeHandlerPassword}  />
 
                 <p>Create new password and we will send you further instructions to email </p>
-
+                        <div>{isError}</div>
                 <button className={style.defaultButton} onClick={onClickHandler}>Create new password</button></div>
             {isSendPassword && (<Navigate to={'/login'}/>)}
 

@@ -31,7 +31,6 @@ export const createNewPasswordTC = (password: string, token: string) => (dispatc
         .then(res => {
             dispatch(createNewPasswordAC(true))
             dispatch(setStatusAC('succeeded'))
-            console.log(res.data)
         })
         .catch(err => {
             const error = err.response

@@ -14,6 +14,7 @@ function Header() {
                 <Link to={"/profile"}>Profile</Link>
                 <Link to={"/registration"}>Registration</Link>
                 <Link to={"/forgot"}>ForgotPassword</Link>
+                <Link to={"/packsList"}>PacksList</Link>
                 {/*<Link to={"/reset"}>Reset</Link>*/}
             </nav>
         </div>

@@ -3,18 +3,18 @@ import style from './App.module.css';
 import Header from "./common/Header/Header";
 import {initializeAppTC} from "./app/app-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "./redux/store";
+import {AppRootState, TypeDispatch} from "./redux/store";
 import Preloader from "./common/Preloader/Preloader";
 import {AllRoutes} from "./app/Routes/AllRoutes";
 
 function App() {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<TypeDispatch>()
     const isInitialized = useSelector<AppRootState, boolean>( state => state.app.isInitialized)
 
 
     useEffect(()=>{
-        dispatch<any>(initializeAppTC())
+        dispatch(initializeAppTC())
     },[])
 
    /* if (!isInitialized){

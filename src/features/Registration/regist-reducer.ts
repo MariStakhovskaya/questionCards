@@ -34,7 +34,6 @@ export const registrationTC = (email: string, password: string) => (dispatch: Di
     dispatch(setStatusAC('loading'))
     authAPI.registration(email, password)
         .then((res) => {
-            console.log(res.data.addedUser)
             dispatch(setStatusAC('succeeded'))
             dispatch(isLoggedInAC(true))
         })

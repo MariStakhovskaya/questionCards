@@ -38,7 +38,6 @@ export const loginTC = (data: LoginParamsType):AppThunkType => (dispatch: Dispat
         authAPI.login(data)
             .then((res) => {
                 dispatch(isLoggedInAC(true))
-                console.log(res.data)
                 dispatch(setUserDataAC(res.data))
                 dispatch(setStatusAC('succeeded'))
             })

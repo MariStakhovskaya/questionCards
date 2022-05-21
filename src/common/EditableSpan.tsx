@@ -1,8 +1,5 @@
 
 import React, { ChangeEvent, useState } from 'react';
-import {updateUserDateTC} from "../features/Profile/profile-reducer";
-import {useDispatch} from "react-redux";
-
 
 type EditableSpanPropsType = {
     value: string
@@ -20,10 +17,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
     }
     const activateViewMode = () => {
         setEditMode(false);
-        setTitle(title)
-
-       ;
-
+        setTitle(title);
     }
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         props.onChange(e.currentTarget.value)
