@@ -54,7 +54,7 @@ import ModalProfile from "./ModalProfile";
              {status === 'loading' && <Preloader/>}
              <img src={userAvatar} alt={''}/>
              <br/>
-            avatar URL: {userAvatar}
+            {/*avatar URL: {userAvatar}*/}
              <br/>
              name: {userName}
             {/* avatar url:  <EditableSpan value={avatar}  onChange={setAvatar} />
@@ -68,7 +68,9 @@ import ModalProfile from "./ModalProfile";
              <ModalProfile active={modalActive} setActive={setModalActive}>
                  avatar url:  <EditableSpan value={avatar}  onChange={setAvatar} />
                  <br/>
+                 <br/>
                  name: <EditableSpan value={name} onChange={setName}/>
+                 <br/>
                  <button onClick={onClickUpdateData}>save</button>
              </ModalProfile>
 
