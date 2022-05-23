@@ -5,19 +5,36 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../redux/store";
 import style from "../../App.module.css";
 import {CardPacksType} from "../../api/cards-api";
+import {Navigate} from "react-router-dom";
+import {isLoggedInAC} from "../Login/login-reducer";
+import {initializeAppTC} from "../../app/app-reducer";
 
 
-function PacksList() {
+const PacksList= React.memo(() =>{
 
     const dispatch = useDispatch<TypeDispatch>()
-    const isError = useSelector<AppRootState, string>(state => state.login.error)
+    const isError = useSelector<AppRootState, string>(state => state.app.error)
     const packs = useSelector<AppRootState, Array<CardPacksType>>(state => state.packs.cardPacks)
+    const userId = useSelector<AppRootState, string>(state => state.profile.userData._id)
+    const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
+
 
     useEffect(() => {
-        dispatch(getPacksListsTC())
+        debugger
+        if(!isLoggedIn){
+            dispatch(initializeAppTC())
+        }
+        else {
+            dispatch(getPacksListsTC())}
+
+
     }, [])
 
     const [activeButton, setActiveButton] = useState(true)
+
+   /* if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }*/
 
     return (
         <div className={styles.packsListBlock}>
@@ -28,12 +45,15 @@ function PacksList() {
                     <button className={activeButton ? styles.active : ''}>All</button>
                 </div>
             </div>
+
             <div className={styles.packsListRight}>
+
                 <h2>Packs List</h2>
-                <div className={style.error}>{isError}</div>
+
                 <div>
                     <button className={styles.defaultButton1}>Add new pack</button>
                 </div>
+                {!isLoggedIn? <div className={style.error}>{isError}</div> :
                 <div className={styles.tablePacksList}>
                     <div className={styles.tableRowPacksList}>
                         <div>Name</div>
@@ -56,7 +76,7 @@ function PacksList() {
 
                         </div>
                     ))}
-                </div>
+                </div>}
 
             </div>
 
@@ -64,7 +84,7 @@ function PacksList() {
 
 </div>
 )
-}
+})
 
 export default PacksList;
 

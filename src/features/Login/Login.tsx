@@ -20,6 +20,9 @@ function Login() {
     const isError = useSelector<AppRootState, string>(state => state.login.error)
     const status = useSelector<AppRootState, string>(state => state.app.status)
 
+    if (isLoggedIn){
+        return <Navigate to={'/profile'}/>
+    }
 
     const onChangeInputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setEmail(event.currentTarget.value)
@@ -63,7 +66,7 @@ function Login() {
                 <p>Don't have an account?</p>
                 <p><Link to={"/registration"}>Sign up</Link></p>
             </div>
-            {isLoggedIn && (<Navigate to={'/profile'}/>)}
+           {/* {isLoggedIn && (<Navigate to={'/profile'}/>)}*/}
 
         </div>
     );

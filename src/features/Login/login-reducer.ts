@@ -5,6 +5,7 @@ import {setUserDataAC} from "../Profile/profile-reducer";
 import {AppActionsType, AppThunkType} from "../../redux/store";
 
 
+
 const initialState = {
         isLoggedIn: false,
          error: ''

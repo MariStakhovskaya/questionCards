@@ -2,12 +2,13 @@
 import {CardPacksType, cardsApi} from "../../api/cards-api";
 import {setStatusAC} from "../../app/app-reducer";
 import {AppActionsType, AppThunkType} from "../../redux/store";
-import {isError} from "../Login/login-reducer";
+import {isError, isLoggedInAC} from "../Login/login-reducer";
 import {Dispatch} from "redux";
 
 
 const initialState = {
-    cardPacks: [] as CardPacksType[]
+    cardPacks: [] as CardPacksType[],
+    isLoggedIn: false,
 
 }
 type InitialStateType = typeof initialState
@@ -17,17 +18,29 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
 
     switch (action.type) {
         case "packs/SET-PACKS-LIST":
-            return {...state, cardPacks: action.packs}
+            return {...state,
+                cardPacks: action.packs.map(pack => ({...pack}))}
+        case "packs/CHANGE-PACKS-LIST-FILTER":
+            return {...state,
+                cardPacks: state.cardPacks.map(pack => pack.user_id === action.id ? {...pack, filter: action.filter} : pack)}
+        case 'packs/IS-LOGGED-IN':
+            return {...state, isLoggedIn:action.isLoggedIn}
         default:
             return state
     }
 }
 // actions
+export const isLoggedInPacksAC = (isLoggedIn: boolean) => (
+    {type: 'packs/IS-LOGGED-IN', isLoggedIn} as const)
 
-export const setPacksListAC = (packs:any) => ({
+
+export const setPacksListAC = (packs:CardPacksType[]) => ({
     type:'packs/SET-PACKS-LIST', packs
 } as const)
 
+export const changeFilterPacksListAC = (id: string, filter:FilterValuesType) => ({
+    type: 'packs/CHANGE-PACKS-LIST-FILTER',
+    id, filter} as const)
 
 
 // thunk
@@ -56,7 +69,10 @@ export const getPacksListsTC = ():AppThunkType => {
 
 
 //type
-export type PacksListActionsType = SetPacksListType
+export type PacksListActionsType = SetPacksListType | ChangeFilterPacksListType | IsLoggedInPacksType
 
 export type SetPacksListType = ReturnType<typeof setPacksListAC>
+export type ChangeFilterPacksListType = ReturnType<typeof changeFilterPacksListAC>
+export type IsLoggedInPacksType = ReturnType<typeof isLoggedInPacksAC>
 
+export type FilterValuesType = 'all' | 'my';
