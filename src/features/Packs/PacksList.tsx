@@ -5,8 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../redux/store";
 import style from "../../App.module.css";
 import {CardPacksType} from "../../api/cards-api";
-import {Navigate} from "react-router-dom";
-import {isLoggedInAC} from "../Login/login-reducer";
 import {initializeAppTC} from "../../app/app-reducer";
 
 
@@ -25,7 +23,8 @@ const PacksList= React.memo(() =>{
             dispatch(initializeAppTC())
         }
         else {
-            dispatch(getPacksListsTC())}
+            dispatch(getPacksListsTC())
+        }
 
 
     }, [])
@@ -34,6 +33,13 @@ const PacksList= React.memo(() =>{
 
     const OnClickMyPacks = () => {
         dispatch(setUserIdAC(userId))
+        setActiveButton(false)
+        dispatch(getPacksListsTC())
+    }
+
+    const OnClickAllPacks = () => {
+        setActiveButton(true)
+        dispatch(setUserIdAC(''))
         dispatch(getPacksListsTC())
     }
 
@@ -46,8 +52,8 @@ const PacksList= React.memo(() =>{
             <div className={styles.packsListLeft}>
                 <p>Show packs cards</p>
                 <div className={styles.btnPacksList}>
-                    <button onClick={OnClickMyPacks}>My</button>
-                    <button className={activeButton ? styles.active : ''}>All</button>
+                    <button onClick={OnClickMyPacks} className={!activeButton ? styles.active : ''}>My</button>
+                    <button onClick={OnClickAllPacks} className={activeButton ? styles.active : ''}>All</button>
                 </div>
             </div>
 
@@ -74,9 +80,13 @@ const PacksList= React.memo(() =>{
                             <div>{el.updated}</div>
                             <div>{el.user_name}</div>
                             <div>
-                                <button>Del</button>
+                                {activeButton ?
+                                    <button>Learn</button> :
+                                    <>
+                                    <button>Del</button>
                                 <button>Edit</button>
                                 <button>Learn</button>
+                                    </>}
                             </div>
 
                         </div>
