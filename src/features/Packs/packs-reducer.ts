@@ -1,14 +1,26 @@
 
-import {CardPacksType, cardsApi} from "../../api/cards-api";
+import {CardPacksType, cardsApi, PacksParamsType} from "../../api/cards-api";
 import {setStatusAC} from "../../app/app-reducer";
-import {AppActionsType, AppThunkType} from "../../redux/store";
+import {AppActionsType, AppRootState, AppThunkType} from "../../redux/store";
 import {isError, isLoggedInAC} from "../Login/login-reducer";
 import {Dispatch} from "redux";
 
 
 const initialState = {
     cardPacks: [] as CardPacksType[],
-    isLoggedIn: false,
+    cardPacksTotalCount: 14,
+    maxCardsCount: 4,
+    minCardsCount: 4,
+    params: {
+        min: 0,
+        max: 20,
+        page: 1,
+        pageCount: 12,
+        sortPacks: '0updated',
+        packName: '',
+        user_id: ''
+    } as PacksParamsType,
+
 
 }
 type InitialStateType = typeof initialState
@@ -23,19 +35,22 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
         case "packs/CHANGE-PACKS-LIST-FILTER":
             return {...state,
                 cardPacks: state.cardPacks.map(pack => pack.user_id === action.id ? {...pack, filter: action.filter} : pack)}
-        case 'packs/IS-LOGGED-IN':
-            return {...state, isLoggedIn:action.isLoggedIn}
+        case "packs/SET-USER-ID":
+            return {...state,params: {...state.params, user_id: action.userId}
+                }
         default:
             return state
     }
 }
 // actions
-export const isLoggedInPacksAC = (isLoggedIn: boolean) => (
-    {type: 'packs/IS-LOGGED-IN', isLoggedIn} as const)
+
 
 
 export const setPacksListAC = (packs:CardPacksType[]) => ({
     type:'packs/SET-PACKS-LIST', packs
+} as const)
+export const setUserIdAC = (userId:string) => ({
+    type:'packs/SET-USER-ID', userId
 } as const)
 
 export const changeFilterPacksListAC = (id: string, filter:FilterValuesType) => ({
@@ -45,9 +60,11 @@ export const changeFilterPacksListAC = (id: string, filter:FilterValuesType) => 
 
 // thunk
 export const getPacksListsTC = ():AppThunkType => {
-    return (dispatch: Dispatch<AppActionsType>) => {
+    return (dispatch: Dispatch<AppActionsType>, getState: ()=> AppRootState ) => {
+
         dispatch(setStatusAC('loading'))
-        cardsApi.getPacksList()
+        const params = getState().packs.params
+        cardsApi.getPacksList(params)
             .then((res) => {
                 console.log(res.data)
                 dispatch(setPacksListAC(res.data.cardPacks))
@@ -69,10 +86,11 @@ export const getPacksListsTC = ():AppThunkType => {
 
 
 //type
-export type PacksListActionsType = SetPacksListType | ChangeFilterPacksListType | IsLoggedInPacksType
+export type PacksListActionsType = SetPacksListType | ChangeFilterPacksListType | SetUserIdType
 
 export type SetPacksListType = ReturnType<typeof setPacksListAC>
+export type SetUserIdType = ReturnType<typeof setUserIdAC>
 export type ChangeFilterPacksListType = ReturnType<typeof changeFilterPacksListAC>
-export type IsLoggedInPacksType = ReturnType<typeof isLoggedInPacksAC>
+
 
 export type FilterValuesType = 'all' | 'my';

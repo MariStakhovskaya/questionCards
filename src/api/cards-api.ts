@@ -40,12 +40,21 @@ export const authAPI = {
 }
 
 export const cardsApi = {
-    getPacksList(){
-        return instance.get<PacksListResponseType>('/cards/pack')}
+    getPacksList(params: PacksParamsType){
+        return instance.get<PacksListResponseType>(('/cards/pack'), {params})}
 }
 
 
 // types
+
+export type PacksParamsType = {
+    min: number,
+    max: number,
+    page: number,
+    pageCount: number,
+    sortPacks: string,
+    packName: string,
+    user_id: string}
 
 type cardType = "pack" | "folder"
 export type CardPacksType = {

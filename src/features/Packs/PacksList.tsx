@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from './PacksList.module.css'
-import {getPacksListsTC} from "./packs-reducer";
+import {getPacksListsTC, setUserIdAC} from "./packs-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../redux/store";
 import style from "../../App.module.css";
@@ -32,6 +32,11 @@ const PacksList= React.memo(() =>{
 
     const [activeButton, setActiveButton] = useState(true)
 
+    const OnClickMyPacks = () => {
+        dispatch(setUserIdAC(userId))
+        dispatch(getPacksListsTC())
+    }
+
    /* if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
     }*/
@@ -41,7 +46,7 @@ const PacksList= React.memo(() =>{
             <div className={styles.packsListLeft}>
                 <p>Show packs cards</p>
                 <div className={styles.btnPacksList}>
-                    <button onClick={() => setActiveButton(true)}>My</button>
+                    <button onClick={OnClickMyPacks}>My</button>
                     <button className={activeButton ? styles.active : ''}>All</button>
                 </div>
             </div>
