@@ -41,11 +41,35 @@ export const authAPI = {
 
 export const cardsApi = {
     getPacksList(params: PacksParamsType){
-        return instance.get<PacksListResponseType>(('/cards/pack'), {params})}
+        return instance.get<PacksListResponseType>(('/cards/pack'), {params})},
+
+    addNewPack(){
+        return instance.post('/cards/pack',  {
+            cardsPack: {
+                name: 'new pack',
+                deckCover: '',
+                private: false
+            }
+        })
+    },
+    deleteMyPack(){
+
+    },
+    updateMyPack(){
+
+    }
+
 }
 
 
 // types
+export type AddPackParamsType = {
+    cardsPack: {
+        name: string
+        deckCover?: string
+        private?: boolean
+    }
+}
 
 export type PacksParamsType = {
     min: number,
@@ -57,6 +81,7 @@ export type PacksParamsType = {
     user_id: string}
 
 type cardType = "pack" | "folder"
+
 export type CardPacksType = {
     _id: string,
     user_id:string,

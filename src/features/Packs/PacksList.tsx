@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from './PacksList.module.css'
-import {getPacksListsTC, setUserIdAC} from "./packs-reducer";
+import {addNewPackAC, addNewPackTC, getPacksListsTC, setUserIdAC} from "./packs-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../redux/store";
 import style from "../../App.module.css";
@@ -17,19 +17,18 @@ const PacksList= React.memo(() =>{
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
 
 
+    const [activeButton, setActiveButton] = useState(true)
+
     useEffect(() => {
         debugger
-        if(!isLoggedIn){
             dispatch(initializeAppTC())
-        }
-        else {
+        if (isLoggedIn) {
             dispatch(getPacksListsTC())
         }
 
-
     }, [])
 
-    const [activeButton, setActiveButton] = useState(true)
+
 
     const OnClickMyPacks = () => {
         dispatch(setUserIdAC(userId))
@@ -41,6 +40,10 @@ const PacksList= React.memo(() =>{
         setActiveButton(true)
         dispatch(setUserIdAC(''))
         dispatch(getPacksListsTC())
+    }
+
+    const onClickSave = () => {
+        dispatch(addNewPackTC())
     }
 
    /* if (!isLoggedIn) {
@@ -62,7 +65,9 @@ const PacksList= React.memo(() =>{
                 <h2>Packs List</h2>
 
                 <div>
-                    <button className={styles.defaultButton1}>Add new pack</button>
+                    <button onClick={onClickSave} className={styles.defaultButton1}>Add new pack</button>
+
+
                 </div>
                 {!isLoggedIn? <div className={style.error}>{isError}</div> :
                 <div className={styles.tablePacksList}>
@@ -74,7 +79,7 @@ const PacksList= React.memo(() =>{
                         <div>Active</div>
                     </div>
                     {packs.map(el => (
-                        <div className={styles.tableRowPacksList}>
+                        <div key={el._id} className={styles.tableRowPacksList}>
                             <div>{el.name}</div>
                             <div>{el.cardsCount}</div>
                             <div>{el.updated}</div>
