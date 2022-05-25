@@ -85,11 +85,11 @@ export const getPacksListsTC = ():AppThunkType => {
     }
 }
 
-export const addNewPackTC = ():AppThunkType => {
+export const addNewPackTC = (newNamePack: string):AppThunkType => {
     return (dispatch, getState) => {
 
         dispatch(setStatusAC('loading'))
-        cardsApi.addNewPack()
+        cardsApi.addNewPack(newNamePack)
             .then((res) => {
              /* dispatch(addNewPackAC(params.nameNewPack))*/
 

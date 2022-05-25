@@ -43,10 +43,10 @@ export const cardsApi = {
     getPacksList(params: PacksParamsType){
         return instance.get<PacksListResponseType>(('/cards/pack'), {params})},
 
-    addNewPack(){
+    addNewPack(newNamePack: string){
         return instance.post('/cards/pack',  {
             cardsPack: {
-                name: 'new pack',
+                name: newNamePack,
                 deckCover: '',
                 private: false
             }

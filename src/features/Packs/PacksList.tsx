@@ -18,6 +18,7 @@ const PacksList= React.memo(() =>{
 
 
     const [activeButton, setActiveButton] = useState(true)
+    const [nameNewPack, setNameNewPack] = useState('')
 
     useEffect(() => {
         debugger
@@ -43,8 +44,12 @@ const PacksList= React.memo(() =>{
     }
 
     const onClickSave = () => {
-        dispatch(addNewPackTC())
+        dispatch(addNewPackTC(nameNewPack))
+        setNameNewPack('')
     }
+   const onChangeNameNewPack = (e: ChangeEvent<HTMLInputElement>) => {
+        setNameNewPack(e.currentTarget.value)
+   }
 
    /* if (!isLoggedIn) {
         return <Navigate to={'/login'}/>
@@ -65,6 +70,7 @@ const PacksList= React.memo(() =>{
                 <h2>Packs List</h2>
 
                 <div>
+                    <input value={nameNewPack} onChange={onChangeNameNewPack}/>
                     <button onClick={onClickSave} className={styles.defaultButton1}>Add new pack</button>
 
 
