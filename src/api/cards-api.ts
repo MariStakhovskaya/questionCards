@@ -52,8 +52,8 @@ export const cardsApi = {
             }
         })
     },
-    deleteMyPack(){
-
+    deleteMyPack(packId: string){
+            return instance.delete(`cards/pack?id=${packId}`)
     },
     updateMyPack(){
 

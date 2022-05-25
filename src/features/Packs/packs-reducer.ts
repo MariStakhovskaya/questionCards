@@ -1,5 +1,5 @@
 
-import {AddPackParamsType, CardPacksType, cardsApi, PacksParamsType} from "../../api/cards-api";
+import { CardPacksType, cardsApi, PacksParamsType} from "../../api/cards-api";
 import {setStatusAC} from "../../app/app-reducer";
 import {AppActionsType, AppRootState, AppThunkType} from "../../redux/store";
 import {isError} from "../Login/login-reducer";
@@ -11,6 +11,7 @@ const initialState = {
     cardPacksTotalCount: 14,
     maxCardsCount: 4,
     minCardsCount: 4,
+
     params: {
         min: 0,
         max: 20,
@@ -27,7 +28,7 @@ type InitialStateType = typeof initialState
 
 
 export const packsReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
-
+debugger
     switch (action.type) {
         case "packs/SET-PACKS-LIST":
             return {...state,
@@ -57,6 +58,9 @@ export const addNewPackAC = (pack: CardPacksType) => ({
 export const setUserIdAC = (userId:string) => ({
     type:'packs/SET-USER-ID', userId
 } as const)
+export const deleteUserPackIdAC = (userId:string) => ({
+    type:'packs/DELETE-USER-PACK', userId
+} as const)
 
 
 // thunk
@@ -67,7 +71,7 @@ export const getPacksListsTC = ():AppThunkType => {
         const params = getState().packs.params
         cardsApi.getPacksList(params)
             .then((res) => {
-                console.log(res.data)
+
                 dispatch(setPacksListAC(res.data.cardPacks))
                 dispatch(setStatusAC('succeeded'))
             })
@@ -87,13 +91,37 @@ export const getPacksListsTC = ():AppThunkType => {
 
 export const addNewPackTC = (newNamePack: string):AppThunkType => {
     return (dispatch, getState) => {
-
         dispatch(setStatusAC('loading'))
         cardsApi.addNewPack(newNamePack)
             .then((res) => {
              /* dispatch(addNewPackAC(params.nameNewPack))*/
 
-                dispatch(addNewPackAC(res.data.cardPacks.pack))
+                /*dispatch(addNewPackAC(res.data.cardPacks.pack))*/
+                dispatch(getPacksListsTC())
+                /*dispatch(addNewPackAC(res.data.cardPacks))*/
+                console.log(res)
+               /* dispatch(getPacksListsTC())*/
+                dispatch(setStatusAC('succeeded'))
+            })
+            .catch(err => {
+                const error = err.response
+                    ? err.response.data.error
+                    : (err.message + ', more details in the console');
+                dispatch(isError(error))
+                setTimeout(() => {
+                    dispatch(isError(''))
+                }, 3000)
+                dispatch(setStatusAC('failed'))
+
+            })
+    }
+}
+
+export const deleteUserPackTC = (packId: string):AppThunkType => {
+    return (dispatch, getState) => {
+        dispatch(setStatusAC('loading'))
+        cardsApi.deleteMyPack(packId)
+            .then((res) => {
                 dispatch(getPacksListsTC())
                 dispatch(setStatusAC('succeeded'))
             })

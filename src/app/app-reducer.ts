@@ -34,10 +34,11 @@ export const setStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATU
 
 // thunk
 export const initializeAppTC = (): AppThunkType => (dispatch) => {
+    debugger
     authAPI.authMe().then(res => {
-            dispatch(isLoggedInAC(true))
-            dispatch(setUserDataAC(res.data))
 
+            dispatch(setUserDataAC(res.data))
+        dispatch(isLoggedInAC(true))
     })
         .catch(err => {
             const error = err.response

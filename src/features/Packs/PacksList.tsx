@@ -1,11 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from './PacksList.module.css'
-import {addNewPackAC, addNewPackTC, getPacksListsTC, setUserIdAC} from "./packs-reducer";
+import {addNewPackTC, deleteUserPackTC, getPacksListsTC, setUserIdAC} from "./packs-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../redux/store";
 import style from "../../App.module.css";
 import {CardPacksType} from "../../api/cards-api";
-import {initializeAppTC} from "../../app/app-reducer";
+
+
 
 
 const PacksList= React.memo(() =>{
@@ -15,20 +16,19 @@ const PacksList= React.memo(() =>{
     const packs = useSelector<AppRootState, Array<CardPacksType>>(state => state.packs.cardPacks)
     const userId = useSelector<AppRootState, string>(state => state.profile.userData._id)
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
+    const isInitialize = useSelector<AppRootState, boolean>(state => state.app.isInitialized)
+
 
 
     const [activeButton, setActiveButton] = useState(true)
     const [nameNewPack, setNameNewPack] = useState('')
 
     useEffect(() => {
-        debugger
-            dispatch(initializeAppTC())
-        if (isLoggedIn) {
-            dispatch(getPacksListsTC())
-        }
+            setTimeout(() => {
+                dispatch(getPacksListsTC())
+            }, 2000)
 
     }, [])
-
 
 
     const OnClickMyPacks = () => {
@@ -91,13 +91,14 @@ const PacksList= React.memo(() =>{
                             <div>{el.updated}</div>
                             <div>{el.user_name}</div>
                             <div>
-                                {activeButton ?
-                                    <button>Learn</button> :
+                                {el.user_id === userId?
                                     <>
-                                    <button>Del</button>
-                                <button>Edit</button>
-                                <button>Learn</button>
-                                    </>}
+                                        <button onClick={()=>{dispatch(deleteUserPackTC(el._id))}}>Del</button>
+                                        <button>Edit</button>
+                                        <button>Learn</button>
+                                    </>
+                                    : <button>Learn</button>
+                                    }
                             </div>
 
                         </div>
