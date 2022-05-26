@@ -1,10 +1,20 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from './PacksList.module.css'
-import {addNewPackTC, deleteUserPackTC, getPacksListsTC, setUserIdAC} from "./packs-reducer";
+import styleModal from '../../features/Profile/Profile.module.css'
+import {
+    addNewPackTC,
+    deleteUserPackTC,
+    getPacksListsTC,
+    setUserIdAC,
+    updatePackTC
+} from "./packs-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState, TypeDispatch} from "../../redux/store";
 import style from "../../App.module.css";
-import {CardPacksType} from "../../api/cards-api";
+import {CardPacksType, PacksParamsType} from "../../api/cards-api";
+import ModalProfile from "../Profile/ModalProfile";
+import Pagination from "../../common/Paginator/Pagination";
+
 
 
 
@@ -14,21 +24,28 @@ const PacksList= React.memo(() =>{
     const dispatch = useDispatch<TypeDispatch>()
     const isError = useSelector<AppRootState, string>(state => state.app.error)
     const packs = useSelector<AppRootState, Array<CardPacksType>>(state => state.packs.cardPacks)
+    const packsName = useSelector<AppRootState, string>(state => state.packs.params.packName)
     const userId = useSelector<AppRootState, string>(state => state.profile.userData._id)
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
-    const isInitialize = useSelector<AppRootState, boolean>(state => state.app.isInitialized)
+    const cardPacksTotalCount = useSelector<AppRootState, number>(state => state.packs.cardPacksTotalCount)
+    const pageCount = useSelector<AppRootState, number>(state => state.packs.params.pageCount)
+    const page = useSelector<AppRootState, number>(state => state.packs.params.page)
+    const params = useSelector<AppRootState, PacksParamsType>(state => state.packs.params)
+
 
 
 
     const [activeButton, setActiveButton] = useState(true)
     const [nameNewPack, setNameNewPack] = useState('')
+    const [modalActive, setModalActive] = useState(false)
+    const [updatePackName, setUpdatePackName] = useState('')
 
     useEffect(() => {
             setTimeout(() => {
                 dispatch(getPacksListsTC())
             }, 2000)
 
-    }, [])
+    }, [params])
 
 
     const OnClickMyPacks = () => {
@@ -94,7 +111,20 @@ const PacksList= React.memo(() =>{
                                 {el.user_id === userId?
                                     <>
                                         <button onClick={()=>{dispatch(deleteUserPackTC(el._id))}}>Del</button>
-                                        <button>Edit</button>
+                                        {modalActive?
+
+                                        <ModalProfile active={modalActive} setActive={setModalActive}>
+
+                                            <br/>
+                                            PackName: <input value={updatePackName} onChange={(e)=>{setUpdatePackName(e.currentTarget.value)}}/>
+                                            <br/>
+                                            <button onClick={()=>{
+                                                dispatch(updatePackTC(el._id, updatePackName))
+                                                setModalActive(false)    }}>save</button>
+                                        </ModalProfile>
+                                            :
+                                        <button onClick={()=>setModalActive(true)}>Edit</button>}
+
                                         <button>Learn</button>
                                     </>
                                     : <button>Learn</button>
@@ -104,8 +134,11 @@ const PacksList= React.memo(() =>{
                         </div>
                     ))}
                 </div>}
-
+                <div>
+                    <Pagination cardPacksTotalCount={cardPacksTotalCount} pageCount={pageCount} page={page}/>
+                </div>
             </div>
+
 
 
 

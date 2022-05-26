@@ -55,7 +55,15 @@ export const cardsApi = {
     deleteMyPack(packId: string){
             return instance.delete(`cards/pack?id=${packId}`)
     },
-    updateMyPack(){
+    updateMyPack(packId: string, updateNamePack: string){
+        return instance.put('cards/pack', {
+            cardsPack: {
+                name: updateNamePack,
+                deckCover: '',
+                private: false,
+                _id: packId
+            }
+        })
 
     }
 
@@ -68,6 +76,7 @@ export type AddPackParamsType = {
         name: string
         deckCover?: string
         private?: boolean
+        packId?: string
     }
 }
 

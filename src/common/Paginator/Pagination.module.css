@@ -1,0 +1,24 @@
+.paginatorBlock{
+    margin-top: 10px;
+}
+.selectedPage {
+    font-weight: bold;
+}
+
+span {
+    border: gray 1px solid;
+    border-radius: 10px;
+
+    padding: 8px;
+    margin: 2px;
+}
+
+span:hover {
+    cursor: pointer;
+    background-color: #ECECF9;
+}
+
+.paginatorBlock button {
+    padding: 8px;
+    border-radius: 10px;
+}
