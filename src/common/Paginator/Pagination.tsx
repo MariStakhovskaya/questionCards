@@ -33,14 +33,20 @@ debugger
     }
     return (
         <div className={style.paginatorBlock}>
-            {portionNumber >1 && <button onClick={()=>setPortionNumber(portionNumber-1)}>PREV</button>}
+            {portionNumber >1 && <button onClick={()=>{
+                setPortionNumber(portionNumber-1)
+                {OnChangeCurrentPage(leftPortionPageNumber -portionSize)}
+            }}>PREV</button>}
 
             {pages.filter(page => page >=leftPortionPageNumber && page<=rightPortionPageNumber)
                 .map(page => (
                 <span onClick={()=>{OnChangeCurrentPage(page)}} className={props.page === page ? style.selectedPage : ''}>{page}</span>
                 ))}
 
-            {portionCount > portionNumber && <button onClick={()=>{setPortionNumber(portionNumber+1)}}>NEXT</button>}
+            {portionCount > portionNumber && <button onClick={()=>{
+                setPortionNumber(portionNumber+1)
+                {OnChangeCurrentPage(rightPortionPageNumber+1)}
+            }}>NEXT</button>}
         </div>
     );
 }

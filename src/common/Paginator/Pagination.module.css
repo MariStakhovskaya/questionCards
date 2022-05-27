@@ -3,6 +3,7 @@
 }
 .selectedPage {
     font-weight: bold;
+    background-color: #ECECF9;
 }
 
 span {
