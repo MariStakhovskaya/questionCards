@@ -39,7 +39,7 @@ export const authAPI = {
     }
 }
 
-export const cardsApi = {
+export const packsApi = {
     getPacksList(params: PacksParamsType){
         return instance.get<PacksListResponseType>(('/cards/pack'), {params})},
 
@@ -64,9 +64,11 @@ export const cardsApi = {
                 _id: packId
             }
         })
+    }}
 
-    }
-
+export const cardApi = {
+    getCardsList(cardsPack_id: string){
+        return instance.get(`/cards/card?cardsPack_id=${cardsPack_id}`)},
 }
 
 
@@ -88,6 +90,16 @@ export type PacksParamsType = {
     sortPacks: string,
     packName: string,
     user_id: string}
+
+export type CardsParamsType= {
+    cardAnswer?:string,
+        cardQuestion?: string,
+        cardsPack_id?:string ,
+        min?: number,
+        max?: number,
+        page?: number,
+        pageCount?: number
+}
 
 type cardType = "pack" | "folder"
 

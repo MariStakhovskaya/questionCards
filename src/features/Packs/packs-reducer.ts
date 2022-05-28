@@ -1,5 +1,5 @@
 
-import { CardPacksType, cardsApi, PacksParamsType} from "../../api/cards-api";
+import {CardPacksType, packsApi, PacksParamsType} from "../../api/cards-api";
 import {setStatusAC} from "../../app/app-reducer";
 import {AppActionsType, AppRootState, AppThunkType} from "../../redux/store";
 import {isError} from "../Login/login-reducer";
@@ -16,7 +16,7 @@ const initialState = {
         min: 0,
         max: 10,
         page: 1,
-        pageCount: 6, // Количество элементов на странице
+        pageCount: 10, // Количество элементов на странице
         sortPacks: '0updated',
         packName: '',
         user_id: ''
@@ -85,7 +85,7 @@ export const getPacksListsTC = ():AppThunkType => {
 
         dispatch(setStatusAC('loading'))
         const params = getState().packs.params
-        cardsApi.getPacksList(params)
+        packsApi.getPacksList(params)
             .then((res) => {
 
                 dispatch(setPacksListAC(res.data.cardPacks))
@@ -109,7 +109,7 @@ export const getPacksListsTC = ():AppThunkType => {
 export const addNewPackTC = (newNamePack: string):AppThunkType => {
     return (dispatch, getState) => {
         dispatch(setStatusAC('loading'))
-        cardsApi.addNewPack(newNamePack)
+        packsApi.addNewPack(newNamePack)
             .then((res) => {
              /* dispatch(addNewPackAC(params.nameNewPack))*/
 
@@ -137,7 +137,7 @@ export const addNewPackTC = (newNamePack: string):AppThunkType => {
 export const updatePackTC = (packId: string, updateNamePack: string):AppThunkType => {
     return (dispatch, getState) => {
         dispatch(setStatusAC('loading'))
-        cardsApi.updateMyPack(packId,updateNamePack)
+        packsApi.updateMyPack(packId,updateNamePack)
             .then((res) => {
                 dispatch(getPacksListsTC())
                 dispatch(setStatusAC('succeeded'))
@@ -159,7 +159,7 @@ export const updatePackTC = (packId: string, updateNamePack: string):AppThunkTyp
 export const deleteUserPackTC = (packId: string):AppThunkType => {
     return (dispatch, getState) => {
         dispatch(setStatusAC('loading'))
-        cardsApi.deleteMyPack(packId)
+        packsApi.deleteMyPack(packId)
             .then((res) => {
                 dispatch(getPacksListsTC())
                 dispatch(setStatusAC('succeeded'))
@@ -190,21 +190,4 @@ export type UpdatePackType = ReturnType<typeof updatePackAC>
 export type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
 
 
-export type CardPackType = {
-    _id: string
-    user_id: string
-    user_name: string
-    private: boolean
-    name: string
-    path: string
-    grade: number
-    shots: number
-    cardsCount: number
-    type: string
-    rating: number
-    created: string
-    updated: string
-    more_id: string
-    __v: number
-    deckCover: null | any
-}
+

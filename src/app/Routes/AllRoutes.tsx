@@ -7,6 +7,7 @@ import Error404 from "../../common/Error404/Page404";
 import React from "react";
 import ForgotPassword from "../../features/ForgotPassword/ForgotPassword";
 import PacksList from "../../features/Packs/PacksList";
+import CardsList from "../../features/Cards/CardsList";
 
 
 export const AllRoutes = () => {
@@ -17,6 +18,7 @@ export const AllRoutes = () => {
         <Route path="profile" element={<Profile/>}/>
         <Route path="registration" element={<Registration/>}/>
         <Route path="packsList" element={<PacksList />}/>
+        <Route path="cardsList/:id" element={<CardsList />}/>
         <Route path="forgot" element={<ForgotPassword />}/>
         <Route path="reset/:resetPasswordToken" element={<Reset />}/>
         <Route path="404" element={<Error404/>}/>

@@ -14,8 +14,7 @@ import style from "../../App.module.css";
 import {CardPacksType, PacksParamsType} from "../../api/cards-api";
 import ModalProfile from "../Profile/ModalProfile";
 import Pagination from "../../common/Paginator/Pagination";
-
-
+import {NavLink} from "react-router-dom";
 
 
 
@@ -87,62 +86,71 @@ const PacksList= React.memo(() =>{
                 <h2>Packs List</h2>
 
                 <div>
+                    {!isLoggedIn ?
+                        <div>
+                            <p>Empty</p>
+                            <p className={style.error}>{isError}</p>
+                        </div> : (<>
                     <input value={nameNewPack} onChange={onChangeNameNewPack}/>
                     <button onClick={onClickSave} className={styles.defaultButton1}>Add new pack</button>
-
-
-                </div>
-                {!isLoggedIn? <div className={style.error}>{isError}</div> :
-                <div className={styles.tablePacksList}>
-                    <div className={styles.tableRowPacksList}>
-                        <div>Name</div>
-                        <div>Cards</div>
-                        <div>Update</div>
-                        <div>Created by</div>
-                        <div>Active</div>
-                    </div>
-                    {packs.map(el => (
-                        <div key={el._id} className={styles.tableRowPacksList}>
-                            <div>{el.name}</div>
-                            <div>{el.cardsCount}</div>
-                            <div>{el.updated}</div>
-                            <div>{el.user_name}</div>
                             <div>
-                                {el.user_id === userId?
-                                    <>
-                                        <button onClick={()=>{dispatch(deleteUserPackTC(el._id))}}>Del</button>
-                                        {modalActive?
+                                <div className={styles.tablePacksList}>
+                                    <div className={styles.tableRowPacksList}>
+                                        <div>Name</div>
+                                        <div>Cards</div>
+                                        <div>Update</div>
+                                        <div>Created by</div>
+                                        <div>Active</div>
+                                    </div>
+                                    {packs.map(el => (
+                                        <div key={el._id} className={styles.tableRowPacksList}>
+                                            <div>{el.name}</div>
+                                            <div>{el.cardsCount}</div>
+                                            <div>{el.updated}</div>
+                                            <div>{el.user_name}</div>
+                                            <div>
+                                                 {el.user_id === userId?
+                            <>
+                                <button onClick={()=>{dispatch(deleteUserPackTC(el._id))}}>Del</button>
+                                {modalActive?
 
-                                        <ModalProfile active={modalActive} setActive={setModalActive}>
+                                    <ModalProfile active={modalActive} setActive={setModalActive}>
 
-                                            <br/>
-                                            PackName: <input value={updatePackName} onChange={(e)=>{setUpdatePackName(e.currentTarget.value)}}/>
-                                            <br/>
-                                            <button onClick={()=>{
-                                                dispatch(updatePackTC(el._id, updatePackName))
-                                                setModalActive(false)    }}>save</button>
-                                        </ModalProfile>
-                                            :
-                                        <button onClick={()=>setModalActive(true)}>Edit</button>}
+                                        <br/>
+                                        PackName: <input value={updatePackName} onChange={(e)=>{setUpdatePackName(e.currentTarget.value)}}/>
+                                        <br/>
+                                        <button onClick={()=>{
+                                            dispatch(updatePackTC(el._id, updatePackName))
+                                            setModalActive(false)    }}>save</button>
+                                    </ModalProfile>
+                                    :
+                                    <button onClick={()=>setModalActive(true)}>Edit</button>}
 
-                                        <button>Learn</button>
-                                    </>
-                                    : <button>Learn</button>
-                                    }
-                            </div>
+                                <NavLink to={`/cardsList/${el._id}`}>cards</NavLink>
+                            </>
+                            :  <NavLink to={`/cardsList/${el._id}`}>cards</NavLink>
+                        }
+                                            </div>
 
-                        </div>
-                    ))}
-                </div>}
-                <div>
-                    <Pagination cardPacksTotalCount={cardPacksTotalCount} pageCount={pageCount} page={page}/>
+                                        </div>
+                                    ))}
+
+                                </div>
+
+                                <div>
+                                    <Pagination cardPacksTotalCount={cardPacksTotalCount} pageCount={pageCount} page={page}/>
+                                </div>
+                            </div></>)
+                    }
+
+
                 </div>
+
+                </div>
+
+
             </div>
 
-
-
-
-</div>
 )
 })
 

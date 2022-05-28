@@ -7,6 +7,7 @@ import {NewPasswordActionTypes, resetReducer} from "../features/ResetPassword/re
 import {ForgotPasswordActionsType, forgotPasswordReducer} from "../features/ForgotPassword/forgotPassword-reducer";
 import {RegistrationActionsType} from "../features/Registration/regist-reducer";
 import {PacksListActionsType, packsReducer} from "../features/Packs/packs-reducer";
+import {CardsListActionsType, cardsReducer} from "../features/Cards/cards-reducer";
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     reset: resetReducer,
     forgot: forgotPasswordReducer,
-    packs: packsReducer
+    packs: packsReducer,
+    cards: cardsReducer
 })
 // определить автоматически тип всего объекта состояния
 export type AppRootState = ReturnType<typeof rootReducer>
@@ -27,7 +29,8 @@ export type AppActionsType = LoginActionsType |
     ForgotPasswordActionsType |
     RegistrationActionsType |
     NewPasswordActionTypes |
-    PacksListActionsType
+    PacksListActionsType |
+    CardsListActionsType
 
 export type TypeDispatch = ThunkDispatch<AppRootState, any, AppActionsType>;
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootState, unknown, AppActionsType>
