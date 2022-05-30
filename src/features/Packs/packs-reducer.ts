@@ -158,10 +158,12 @@ export const updatePackTC = (packId: string, updateNamePack: string):AppThunkTyp
 
 export const deleteUserPackTC = (packId: string):AppThunkType => {
     return (dispatch, getState) => {
+        console.log(packId)
         dispatch(setStatusAC('loading'))
         packsApi.deleteMyPack(packId)
             .then((res) => {
                 dispatch(getPacksListsTC())
+                console.log(res.data.cardPacks)
                 dispatch(setStatusAC('succeeded'))
             })
             .catch(err => {

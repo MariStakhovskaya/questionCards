@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styles from './PacksList.module.css'
-import styleModal from '../../features/Profile/Profile.module.css'
 import {
     addNewPackTC,
     deleteUserPackTC,
@@ -38,6 +37,7 @@ const PacksList= React.memo(() =>{
     const [nameNewPack, setNameNewPack] = useState('')
     const [modalActive, setModalActive] = useState(false)
     const [updatePackName, setUpdatePackName] = useState('')
+    const [IdPackName, setIdPackName] = useState('')
 
     useEffect(() => {
             setTimeout(() => {
@@ -120,11 +120,16 @@ const PacksList= React.memo(() =>{
                                         PackName: <input value={updatePackName} onChange={(e)=>{setUpdatePackName(e.currentTarget.value)}}/>
                                         <br/>
                                         <button onClick={()=>{
-                                            dispatch(updatePackTC(el._id, updatePackName))
-                                            setModalActive(false)    }}>save</button>
+                                            dispatch(updatePackTC(IdPackName, updatePackName))
+                                            setModalActive(false)
+                                        setUpdatePackName('')}}>save</button>
                                     </ModalProfile>
                                     :
-                                    <button onClick={()=>setModalActive(true)}>Edit</button>}
+                                    <button onClick={
+                                        ()=>{setModalActive(true)
+                                            setUpdatePackName(el.name)
+                                            setIdPackName(el._id)
+                                            }}>Edit</button>}
 
                                 <NavLink to={`/cardsList/${el._id}`}>cards</NavLink>
                             </>

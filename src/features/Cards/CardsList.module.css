@@ -1,7 +1,5 @@
 .cardsListBlock {
-    width: 90%;
-    display: flex;
-    justify-content: flex-start;
+
     background-color: white;
     color: black;
     height: 80vh;
@@ -14,6 +12,16 @@
     height: 48px;
     background-color: #F8F7FD;
     align-items: center;
+}
+.tableRowCardsList div {
+
+    height: 35px;
+}
+.answer {
+    width: 35%;
+    text-align: left;
+
+
 }
 
 .tableCardsList{

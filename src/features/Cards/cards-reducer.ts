@@ -1,7 +1,7 @@
 
-import {cardApi, CardsParamsType} from "../../api/cards-api";
+import {cardApi} from "../../api/cards-api";
 import {setStatusAC} from "../../app/app-reducer";
-import {AppActionsType, AppRootState, AppThunkType} from "../../redux/store";
+import {AppActionsType, AppThunkType} from "../../redux/store";
 import {isError} from "../Login/login-reducer";
 import {Dispatch} from "redux";
 
