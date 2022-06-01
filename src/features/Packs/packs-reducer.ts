@@ -1,4 +1,3 @@
-
 import {CardPacksType, packsApi, PacksParamsType} from "../../api/cards-api";
 import {setStatusAC} from "../../app/app-reducer";
 import {AppActionsType, AppRootState, AppThunkType} from "../../redux/store";
@@ -28,7 +27,7 @@ type InitialStateType = typeof initialState
 
 
 export const packsReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
-debugger
+
     switch (action.type) {
         case "packs/SET-PACKS-LIST":
             return {...state,
@@ -41,30 +40,23 @@ debugger
             return {...state,cardPacksTotalCount: action.cardPacksTotalCount}
         case 'packs/SET-CURRENT-PAGE':
             return {...state,params:{...state.params, page: action.page}}
-        case "packs/ADD-NEW-PACK":
+        case 'packs/SORT-PACK':
+            return {...state,params:{...state.params, sortPacks: action.sort}}
+       /* case "packs/ADD-NEW-PACK":
             return {...state,
-                cardPacks: [ action.pack, ...state.cardPacks]}
-        case "packs/UPDATE-PACK":
-            return {...state,
-                cardPacks: [ ...state.cardPacks ]}
-
+                cardPacks: [ action.pack, ...state.cardPacks]}*/
         default:
             return state
     }
 }
 // actions
-
-
-
 export const setPacksListAC = (packs:CardPacksType[]) => ({
     type:'packs/SET-PACKS-LIST', packs
 } as const)
 export const addNewPackAC = (pack: CardPacksType) => ({
     type:'packs/ADD-NEW-PACK', pack
 } as const)
-export const updatePackAC = (pack: CardPacksType) => ({
-    type:'packs/UPDATE-PACK', pack
-} as const)
+
 export const setUserIdAC = (userId:string) => ({
     type:'packs/SET-USER-ID', userId
 } as const)
@@ -76,6 +68,9 @@ export const setCurrentPageAC = (page:number) => ({
 } as const)
 export const deleteUserPackIdAC = (userId:string) => ({
     type:'packs/DELETE-USER-PACK', userId
+} as const)
+export const sortPackAC = (sort: string) => ({
+    type:'packs/SORT-PACK', sort
 } as const)
 
 
@@ -111,13 +106,8 @@ export const addNewPackTC = (newNamePack: string):AppThunkType => {
         dispatch(setStatusAC('loading'))
         packsApi.addNewPack(newNamePack)
             .then((res) => {
-             /* dispatch(addNewPackAC(params.nameNewPack))*/
 
-                /*dispatch(addNewPackAC(res.data.cardPacks.pack))*/
                 dispatch(getPacksListsTC())
-                /*dispatch(addNewPackAC(res.data.cardPacks))*/
-                console.log(res)
-               /* dispatch(getPacksListsTC())*/
                 dispatch(setStatusAC('succeeded'))
             })
             .catch(err => {
@@ -158,7 +148,6 @@ export const updatePackTC = (packId: string, updateNamePack: string):AppThunkTyp
 
 export const deleteUserPackTC = (packId: string):AppThunkType => {
     return (dispatch, getState) => {
-        console.log(packId)
         dispatch(setStatusAC('loading'))
         packsApi.deleteMyPack(packId)
             .then((res) => {
@@ -182,14 +171,14 @@ export const deleteUserPackTC = (packId: string):AppThunkType => {
 
 
 //type
-export type PacksListActionsType = SetPacksListType  | SetUserIdType | AddNewPackType | UpdatePackType | SetCardPackTotalCountType | SetCurrentPageType
+export type PacksListActionsType = SetPacksListType  | SetUserIdType | AddNewPackType  | SetCardPackTotalCountType | SetCurrentPageType |SortPackType
 
 export type SetPacksListType = ReturnType<typeof setPacksListAC>
 export type SetUserIdType = ReturnType<typeof setUserIdAC>
 export type SetCardPackTotalCountType = ReturnType<typeof setCardPackTotalCountAC>
 export type AddNewPackType = ReturnType<typeof addNewPackAC>
-export type UpdatePackType = ReturnType<typeof updatePackAC>
 export type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
+export type SortPackType = ReturnType<typeof sortPackAC>
 
 
 

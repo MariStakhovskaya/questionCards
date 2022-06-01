@@ -4,7 +4,7 @@ import {
     addNewPackTC,
     deleteUserPackTC,
     getPacksListsTC,
-    setUserIdAC,
+    setUserIdAC, sortPackAC,
     updatePackTC
 } from "./packs-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -98,7 +98,7 @@ const PacksList= React.memo(() =>{
                                     <div className={styles.tableRowPacksList}>
                                         <div>Name</div>
                                         <div>Cards</div>
-                                        <div>Update</div>
+                                        <div>Update<span onClick={()=>dispatch(sortPackAC('1updated'))}>▼</span><span onClick={()=>dispatch(sortPackAC('0updated'))}>⯅</span></div>
                                         <div>Created by</div>
                                         <div>Active</div>
                                     </div>

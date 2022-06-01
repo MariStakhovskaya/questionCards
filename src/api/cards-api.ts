@@ -67,12 +67,28 @@ export const packsApi = {
     }}
 
 export const cardApi = {
-    getCardsList(cardsPack_id: string){
-        return instance.get(`/cards/card?cardsPack_id=${cardsPack_id}`)},
+    getCardsList(cardsPack_id: string, params:CardsParamsType){
+        return instance.get(`/cards/card?cardsPack_id=${cardsPack_id}`,{params})},
+
+    addCard(cardsPackId:string,questionCard: string){
+        return instance.post('/cards/card',{
+            card: {
+                cardsPack_id:cardsPackId,
+                question:questionCard
+            }
+        })
+    },
+    deleteCard(){
+
+    },
+    updateCard(){
+
+    }
 }
 
 
 // types
+
 export type AddPackParamsType = {
     cardsPack: {
         name: string
