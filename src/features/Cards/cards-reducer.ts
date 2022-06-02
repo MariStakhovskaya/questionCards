@@ -6,6 +6,7 @@ import {Dispatch} from "redux";
 
 
 
+
 const initialState = {
     cards:[] as Array<CardType>,
     cardsTotalCount: 5,
@@ -87,6 +88,49 @@ export const addCardTC = (cardsPackId:string,questionCard: string):AppThunkType 
     return (dispatch, getState) => {
         dispatch(setStatusAC('loading'))
         cardApi.addCard(cardsPackId,questionCard)
+            .then((res) => {
+                dispatch(getCardsListsTC(cardsPackId))
+                dispatch(setStatusAC('succeeded'))
+            })
+            .catch(err => {
+                const error = err.response
+                    ? err.response.data.error
+                    : (err.message + ', more details in the console');
+                dispatch(isError(error))
+                setTimeout(() => {
+                    dispatch(isError(''))
+                }, 3000)
+                dispatch(setStatusAC('failed'))
+
+            })
+    }
+}
+export const deleteCardTC = (cardId: string, cardsPackId:string):AppThunkType => {
+    return (dispatch, getState) => {
+        dispatch(setStatusAC('loading'))
+        cardApi.deleteCard(cardId)
+            .then((res) => {
+                dispatch(getCardsListsTC(cardsPackId))
+                dispatch(setStatusAC('succeeded'))
+            })
+            .catch(err => {
+                const error = err.response
+                    ? err.response.data.error
+                    : (err.message + ', more details in the console');
+                dispatch(isError(error))
+                setTimeout(() => {
+                    dispatch(isError(''))
+                }, 3000)
+                dispatch(setStatusAC('failed'))
+
+            })
+    }
+}
+
+export const updateCardTC = (cardId: string, cardsPackId:string, question: string):AppThunkType => {
+    return (dispatch, getState) => {
+        dispatch(setStatusAC('loading'))
+        cardApi.updateCard(cardId, question)
             .then((res) => {
                 dispatch(getCardsListsTC(cardsPackId))
                 dispatch(setStatusAC('succeeded'))
