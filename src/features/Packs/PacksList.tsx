@@ -14,6 +14,7 @@ import {CardPacksType, PacksParamsType} from "../../api/cards-api";
 import ModalProfile from "../Profile/ModalProfile";
 import Pagination from "../../common/Paginator/Pagination";
 import {NavLink} from "react-router-dom";
+import Preloader from "../../common/Preloader/Preloader";
 
 
 
@@ -22,14 +23,13 @@ const PacksList= React.memo(() =>{
     const dispatch = useDispatch<TypeDispatch>()
     const isError = useSelector<AppRootState, string>(state => state.app.error)
     const packs = useSelector<AppRootState, Array<CardPacksType>>(state => state.packs.cardPacks)
-    const packsName = useSelector<AppRootState, string>(state => state.packs.params.packName)
     const userId = useSelector<AppRootState, string>(state => state.profile.userData._id)
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
     const cardPacksTotalCount = useSelector<AppRootState, number>(state => state.packs.cardPacksTotalCount)
     const pageCount = useSelector<AppRootState, number>(state => state.packs.params.pageCount)
     const page = useSelector<AppRootState, number>(state => state.packs.params.page)
     const params = useSelector<AppRootState, PacksParamsType>(state => state.packs.params)
-
+    const status = useSelector<AppRootState, string>(state => state.app.status)
 
 
 
@@ -84,7 +84,7 @@ const PacksList= React.memo(() =>{
             <div className={styles.packsListRight}>
 
                 <h2>Packs List</h2>
-
+                {status === 'loading' && <Preloader/>}
                 <div>
                     {!isLoggedIn ?
                         <div>

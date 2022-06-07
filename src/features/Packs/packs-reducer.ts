@@ -102,7 +102,7 @@ export const getPacksListsTC = ():AppThunkType => {
 }
 
 export const addNewPackTC = (newNamePack: string):AppThunkType => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(setStatusAC('loading'))
         packsApi.addNewPack(newNamePack)
             .then((res) => {
@@ -125,7 +125,7 @@ export const addNewPackTC = (newNamePack: string):AppThunkType => {
 }
 
 export const updatePackTC = (packId: string, updateNamePack: string):AppThunkType => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(setStatusAC('loading'))
         packsApi.updateMyPack(packId,updateNamePack)
             .then((res) => {
@@ -147,12 +147,11 @@ export const updatePackTC = (packId: string, updateNamePack: string):AppThunkTyp
 }
 
 export const deleteUserPackTC = (packId: string):AppThunkType => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(setStatusAC('loading'))
         packsApi.deleteMyPack(packId)
             .then((res) => {
                 dispatch(getPacksListsTC())
-                console.log(res.data.cardPacks)
                 dispatch(setStatusAC('succeeded'))
             })
             .catch(err => {

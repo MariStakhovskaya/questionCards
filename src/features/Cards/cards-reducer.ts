@@ -85,7 +85,7 @@ export const getCardsListsTC = (cardsPack_id:string):AppThunkType => {
 
 
 export const addCardTC = (cardsPackId:string,questionCard: string):AppThunkType => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(setStatusAC('loading'))
         cardApi.addCard(cardsPackId,questionCard)
             .then((res) => {
@@ -106,7 +106,7 @@ export const addCardTC = (cardsPackId:string,questionCard: string):AppThunkType 
     }
 }
 export const deleteCardTC = (cardId: string, cardsPackId:string):AppThunkType => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         dispatch(setStatusAC('loading'))
         cardApi.deleteCard(cardId)
             .then((res) => {
@@ -127,10 +127,10 @@ export const deleteCardTC = (cardId: string, cardsPackId:string):AppThunkType =>
     }
 }
 
-export const updateCardTC = (cardId: string, cardsPackId:string, question: string):AppThunkType => {
-    return (dispatch, getState) => {
+export const updateCardTC = (cardId: string, cardsPackId:string, question: string, answer: string):AppThunkType => {
+    return (dispatch) => {
         dispatch(setStatusAC('loading'))
-        cardApi.updateCard(cardId, question)
+        cardApi.updateCard(cardId, question,answer)
             .then((res) => {
                 dispatch(getCardsListsTC(cardsPackId))
                 dispatch(setStatusAC('succeeded'))
