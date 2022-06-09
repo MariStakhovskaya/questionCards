@@ -38,6 +38,7 @@ const PacksList= React.memo(() =>{
     const [modalActive, setModalActive] = useState(false)
     const [updatePackName, setUpdatePackName] = useState('')
     const [IdPackName, setIdPackName] = useState('')
+    const [searchValue, setSearchValue] = useState('')
 
     useEffect(() => {
             setTimeout(() => {
@@ -46,7 +47,9 @@ const PacksList= React.memo(() =>{
 
     }, [params])
 
-
+    const filteredPacks = packs.filter(pack => {
+        return pack.name.toLowerCase().includes(searchValue.toLowerCase())
+    })
     const OnClickMyPacks = () => {
         dispatch(setUserIdAC(userId))
         setActiveButton(false)
@@ -91,8 +94,10 @@ const PacksList= React.memo(() =>{
                             <p>Empty</p>
                             <p className={style.error}>{isError}</p>
                         </div> : (<>
-                    <input value={nameNewPack} onChange={onChangeNameNewPack}/>
-                    <button onClick={onClickSave} className={styles.defaultButton1}>Add new pack</button>
+                            <div><input value={searchValue} onChange={(e)=>{setSearchValue(e.currentTarget.value)}}/></div>
+
+                   <div> <input value={nameNewPack} onChange={onChangeNameNewPack}/>
+                    <button onClick={onClickSave} className={styles.defaultButton1}>Add new pack</button></div>
                             <div>
                                 <div className={styles.tablePacksList}>
                                     <div className={styles.tableRowPacksList}>
@@ -102,7 +107,7 @@ const PacksList= React.memo(() =>{
                                         <div>Created by</div>
                                         <div>Active</div>
                                     </div>
-                                    {packs.map(el => (
+                                    {filteredPacks.map(el => (
                                         <div key={el._id} className={styles.tableRowPacksList}>
                                             <div>{el.name}</div>
                                             <div>{el.cardsCount}</div>

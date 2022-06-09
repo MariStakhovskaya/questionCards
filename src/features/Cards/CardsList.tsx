@@ -81,9 +81,11 @@ const CardsList = React.memo(() => {
                                     <ModalProfile active={modalActive} setActive={setModalActive}>
 
                                         <br/>
-                                        Question: <input value={updateQuestion} onChange={(e)=>{setUpdateQuestion(e.currentTarget.value)}}/>
+                                        Question: <input value={updateQuestion}
+                                                         onChange={(e)=>{setUpdateQuestion(e.currentTarget.value)}}/>
                                        <br/>
-                                        Answer: <input value={updateAnswer} onChange={(e)=>{setUpdateAnswer(e.currentTarget.value)}}/>
+                                        Answer: <input value={updateAnswer}
+                                                       onChange={(e)=>{setUpdateAnswer(e.currentTarget.value)}}/>
                                         <br/>
                                         <button onClick={()=>{
                                             dispatch(updateCardTC(IdCard, el.cardsPack_id,updateQuestion,updateAnswer ))

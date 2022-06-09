@@ -5,8 +5,6 @@ import {isError} from "../Login/login-reducer";
 import {Dispatch} from "redux";
 
 
-
-
 const initialState = {
     cards:[] as Array<CardType>,
     cardsTotalCount: 5,
@@ -29,7 +27,6 @@ export const cardsReducer = (state: InitialStateType = initialState, action: App
     switch (action.type) {
         case "cards/SET-CARDS-LIST":
             return {...state, cards: action.cards}
-
         case 'cards/SET-CARDS-TOTAL-COUNT':
             return {...state,cardsTotalCount: action.cardsTotalCount}
         case 'cards/SET-CARDS-PAGE-COUNT':
@@ -40,8 +37,6 @@ export const cardsReducer = (state: InitialStateType = initialState, action: App
 }
 // actions
 
-
-
 export const setCardsListAC = (cards:CardType[]) => ({
     type:'cards/SET-CARDS-LIST', cards
 } as const)
@@ -51,8 +46,6 @@ export const setCardsTotalCountAC = (cardsTotalCount:number) => ({
 export const setCardsPageCountAC = (pageCount:number) => ({
     type:'cards/SET-CARDS-PAGE-COUNT', pageCount
 } as const)
-
-
 
 
 // thunk

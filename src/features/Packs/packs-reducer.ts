@@ -42,9 +42,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
             return {...state,params:{...state.params, page: action.page}}
         case 'packs/SORT-PACK':
             return {...state,params:{...state.params, sortPacks: action.sort}}
-       /* case "packs/ADD-NEW-PACK":
-            return {...state,
-                cardPacks: [ action.pack, ...state.cardPacks]}*/
+
         default:
             return state
     }
@@ -53,9 +51,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
 export const setPacksListAC = (packs:CardPacksType[]) => ({
     type:'packs/SET-PACKS-LIST', packs
 } as const)
-export const addNewPackAC = (pack: CardPacksType) => ({
-    type:'packs/ADD-NEW-PACK', pack
-} as const)
+
 
 export const setUserIdAC = (userId:string) => ({
     type:'packs/SET-USER-ID', userId
@@ -65,9 +61,6 @@ export const setCardPackTotalCountAC = (cardPacksTotalCount:number) => ({
 } as const)
 export const setCurrentPageAC = (page:number) => ({
     type:'packs/SET-CURRENT-PAGE', page
-} as const)
-export const deleteUserPackIdAC = (userId:string) => ({
-    type:'packs/DELETE-USER-PACK', userId
 } as const)
 export const sortPackAC = (sort: string) => ({
     type:'packs/SORT-PACK', sort
@@ -170,12 +163,11 @@ export const deleteUserPackTC = (packId: string):AppThunkType => {
 
 
 //type
-export type PacksListActionsType = SetPacksListType  | SetUserIdType | AddNewPackType  | SetCardPackTotalCountType | SetCurrentPageType |SortPackType
+export type PacksListActionsType = SetPacksListType  | SetUserIdType  | SetCardPackTotalCountType | SetCurrentPageType |SortPackType
 
 export type SetPacksListType = ReturnType<typeof setPacksListAC>
 export type SetUserIdType = ReturnType<typeof setUserIdAC>
 export type SetCardPackTotalCountType = ReturnType<typeof setCardPackTotalCountAC>
-export type AddNewPackType = ReturnType<typeof addNewPackAC>
 export type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
 export type SortPackType = ReturnType<typeof sortPackAC>
 
