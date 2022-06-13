@@ -42,6 +42,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: App
             return {...state,params:{...state.params, page: action.page}}
         case 'packs/SORT-PACK':
             return {...state,params:{...state.params, sortPacks: action.sort}}
+        case 'packs/SEARCH-PACK':
+            return {...state,params:{...state.params, packName: action.packName}}
 
         default:
             return state
@@ -65,6 +67,9 @@ export const setCurrentPageAC = (page:number) => ({
 export const sortPackAC = (sort: string) => ({
     type:'packs/SORT-PACK', sort
 } as const)
+export const searchPackAC = (packName: string) => ({
+    type:'packs/SEARCH-PACK', packName
+} as const)
 
 
 // thunk
@@ -78,6 +83,7 @@ export const getPacksListsTC = ():AppThunkType => {
 
                 dispatch(setPacksListAC(res.data.cardPacks))
                 dispatch(setCardPackTotalCountAC(res.data.cardPacksTotalCount))
+
                 dispatch(setStatusAC('succeeded'))
             })
             .catch(err => {
@@ -163,13 +169,14 @@ export const deleteUserPackTC = (packId: string):AppThunkType => {
 
 
 //type
-export type PacksListActionsType = SetPacksListType  | SetUserIdType  | SetCardPackTotalCountType | SetCurrentPageType |SortPackType
+export type PacksListActionsType = SetPacksListType  | SetUserIdType  | SetCardPackTotalCountType | SetCurrentPageType |SortPackType | SearchPackType
 
 export type SetPacksListType = ReturnType<typeof setPacksListAC>
 export type SetUserIdType = ReturnType<typeof setUserIdAC>
 export type SetCardPackTotalCountType = ReturnType<typeof setCardPackTotalCountAC>
 export type SetCurrentPageType = ReturnType<typeof setCurrentPageAC>
 export type SortPackType = ReturnType<typeof sortPackAC>
+export type SearchPackType = ReturnType<typeof searchPackAC>
 
 
 

@@ -59,7 +59,8 @@ export const getCardsListsTC = (cardsPack_id:string):AppThunkType => {
 
                 dispatch(setCardsListAC(res.data.cards))
                 dispatch(setCardsPageCountAC(res.data.cards.params.pageCount))
-            console.log(res.data.cards)
+                dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
+
                 dispatch(setStatusAC('succeeded'))
             })
             .catch(err => {

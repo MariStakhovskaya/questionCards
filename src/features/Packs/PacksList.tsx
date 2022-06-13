@@ -3,8 +3,8 @@ import styles from './PacksList.module.css'
 import {
     addNewPackTC,
     deleteUserPackTC,
-    getPacksListsTC,
-    setUserIdAC, sortPackAC,
+    getPacksListsTC, searchPackAC, setUserIdAC,
+    sortPackAC,
     updatePackTC
 } from "./packs-reducer";
 import {useDispatch, useSelector} from "react-redux";
@@ -26,8 +26,8 @@ const PacksList= React.memo(() =>{
     const userId = useSelector<AppRootState, string>(state => state.profile.userData._id)
     const isLoggedIn = useSelector<AppRootState, boolean>(state => state.login.isLoggedIn)
     const cardPacksTotalCount = useSelector<AppRootState, number>(state => state.packs.cardPacksTotalCount)
-    const pageCount = useSelector<AppRootState, number>(state => state.packs.params.pageCount)
-    const page = useSelector<AppRootState, number>(state => state.packs.params.page)
+    const pageCount = useSelector<AppRootState, number >(state => state.packs.params.pageCount)
+    const page = useSelector<AppRootState, number >(state => state.packs.params.page)
     const params = useSelector<AppRootState, PacksParamsType>(state => state.packs.params)
     const status = useSelector<AppRootState, string>(state => state.app.status)
 
@@ -45,11 +45,9 @@ const PacksList= React.memo(() =>{
                 dispatch(getPacksListsTC())
             }, 2000)
 
-    }, [params])
+    }, [params,searchPackAC])
 
-    const filteredPacks = packs.filter(pack => {
-        return pack.name.toLowerCase().includes(searchValue.toLowerCase())
-    })
+
     const OnClickMyPacks = () => {
         dispatch(setUserIdAC(userId))
         setActiveButton(false)
@@ -60,6 +58,10 @@ const PacksList= React.memo(() =>{
         setActiveButton(true)
         dispatch(setUserIdAC(''))
         dispatch(getPacksListsTC())
+    }
+
+    const onClickSearch = () => {
+        dispatch(searchPackAC(searchValue))
     }
 
     const onClickSave = () => {
@@ -94,7 +96,8 @@ const PacksList= React.memo(() =>{
                             <p>Empty</p>
                             <p className={style.error}>{isError}</p>
                         </div> : (<>
-                            <div><input value={searchValue} onChange={(e)=>{setSearchValue(e.currentTarget.value)}}/></div>
+                            <div><input value={searchValue} onChange={(e)=>{setSearchValue(e.currentTarget.value)}}/>
+                                <button onClick={onClickSearch} className={styles.defaultButton1}>Search</button></div>
 
                    <div> <input value={nameNewPack} onChange={onChangeNameNewPack}/>
                     <button onClick={onClickSave} className={styles.defaultButton1}>Add new pack</button></div>
@@ -103,11 +106,12 @@ const PacksList= React.memo(() =>{
                                     <div className={styles.tableRowPacksList}>
                                         <div>Name</div>
                                         <div>Cards</div>
-                                        <div>Update<span onClick={()=>dispatch(sortPackAC('1updated'))}>▼</span><span onClick={()=>dispatch(sortPackAC('0updated'))}>⯅</span></div>
+                                        <div>Update<span onClick={()=>dispatch(sortPackAC('1updated'))}>▼</span>
+                                                    <span onClick={()=>dispatch(sortPackAC('0updated'))}>▲</span></div>
                                         <div>Created by</div>
                                         <div>Active</div>
                                     </div>
-                                    {filteredPacks.map(el => (
+                                    {packs.map(el => (
                                         <div key={el._id} className={styles.tableRowPacksList}>
                                             <div>{el.name}</div>
                                             <div>{el.cardsCount}</div>

@@ -5,22 +5,24 @@ import {setCurrentPageAC} from "../../features/Packs/packs-reducer";
 
 type PaginatorPropsType = {
     cardPacksTotalCount: number,
-    pageCount: number,
-    page: number,
+    pageCount: number ,
+    page: number ,
     portionSize?: number
 }
 
 const Pagination = React.memo(({portionSize = 10,...props}:PaginatorPropsType) => {
 
     const dispatch = useDispatch()
-    let pagesCount = Math.ceil(props.cardPacksTotalCount/ props.pageCount) // Сколько всего страниц
+    let pagesCount
+
+    pagesCount = Math.ceil(props.cardPacksTotalCount/ props.pageCount) // Сколько всего страниц
+
 
     let pages: Array<number> = []
 
     for (let i = 1; i <= pagesCount; i++)
-    {
-        pages.push(i)
-    }
+    {pages.push(i)}
+
 
     let portionCount = Math.ceil(pagesCount/portionSize)  // сколько всего получится порций страниц
     let [portionNumber, setPortionNumber] = useState(1)  // Номер порции
