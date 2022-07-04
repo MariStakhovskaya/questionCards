@@ -7,14 +7,15 @@
 
 .tableRowCardsList{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     width: 100%;
-    height: 48px;
+    /*height: 48px;*/
     background-color: #F8F7FD;
     align-items: center;
 }
-.tableRowCardsList div {
-
+.tableRowCardsList span {
+    border: none;
     /*height: 35px;*/
 }
 .answer {
@@ -32,4 +33,8 @@
     min-width: 900px;
     background-color: #F8F7FD;
     align-items: center;
+}
+
+.tableCardsList div:nth-child(odd){
+    background: #a68ea9;
 }

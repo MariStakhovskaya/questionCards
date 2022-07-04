@@ -1,4 +1,5 @@
 import axios from "axios";
+import {CardType} from "../features/Cards/cards-reducer";
 
 
 export const instance = axios.create({
@@ -67,8 +68,8 @@ export const packsApi = {
     }}
 
 export const cardApi = {
-    getCardsList(cardsPack_id: string, params:CardsParamsType){
-        return instance.get(`/cards/card?cardsPack_id=${cardsPack_id}`,{params})},
+    getCardsList(cardsPack_id:string){
+        return instance.get<CardsResponseType>((`/cards/card?cardsPack_id=${cardsPack_id}`),)},
 
     addCard(cardsPackId:string,questionCard: string){
         return instance.post('/cards/card',{
@@ -114,13 +115,13 @@ export type PacksParamsType = {
     user_id: string}
 
 export type CardsParamsType= {
-    cardAnswer?:string,
-        cardQuestion?: string,
-        cardsPack_id?:string ,
-        min?: number,
-        max?: number,
-        page?: number,
-        pageCount?: number
+    cardAnswer:string,
+        cardQuestion: string,
+        cardsPack_id:string ,
+        min: number,
+        max: number,
+        page: number,
+        pageCount: number
 }
 
 type cardType = "pack" | "folder"
@@ -142,6 +143,16 @@ updated: string
 user_name: string
 __v: number
 }
+export type CardsResponseType= {
+    cards: Array<CardType>,
+    cardsTotalCount: number
+    maxGrade: number
+    minGrade: number
+    page: number
+    pageCount: number
+    packUserId: string
+}
+
 
 
 type PacksListResponseType = {

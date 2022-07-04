@@ -16,14 +16,16 @@ const CardsList = React.memo(() => {
     const dispatch = useDispatch<TypeDispatch>()
     const isError = useSelector<AppRootState, string>(state => state.app.error)
     const cards = useSelector<AppRootState, Array<CardType>>(state => state.cards.cards)
-    const params = useSelector<AppRootState, CardsParamsType>(state => state.cards.params)
     const userId = useSelector<AppRootState, string>(state => state.profile.userData._id)
     const cardsTotalCount = useSelector<AppRootState, number>(state => state.cards.cardsTotalCount)
     const pageCount = useSelector<AppRootState, number>(state => state.cards.params.pageCount)
     const page = useSelector<AppRootState, number>(state => state.cards.params.page)
-    const status = useSelector<AppRootState,string>(state=> state.app.status)
+    const status = useSelector<AppRootState,string>(state => state.app.status)
+
+
 
     const {id} = useParams<{ id: string  }>()
+
 
     const [questionCard, setQuestionCard] = useState('')
     const [modalActive, setModalActive] = useState(false)
@@ -35,7 +37,7 @@ const CardsList = React.memo(() => {
             if(id){
                 dispatch(getCardsListsTC(id))
             }
-    },[params,dispatch,])
+    },[])
 
     const onChangeQuestionCard = (e: ChangeEvent<HTMLInputElement>) => {
         setQuestionCard(e.currentTarget.value)
@@ -53,7 +55,7 @@ const CardsList = React.memo(() => {
 
     return (
         <div className={styles.cardsListBlock}>
-            <h2>Cards List </h2>
+            <h2>Cards List from Pack: </h2>
             <div>
 
             <input value={questionCard} onChange={onChangeQuestionCard}/>
@@ -69,10 +71,11 @@ const CardsList = React.memo(() => {
                     <div>Active</div>
                 </div>
                 {cards.map(el => (
+
                     <div key={el._id} className={styles.tableRowCardsList}>
-                        <div>{el.question}</div>
+                        <span>{el.question}</span>
                         <div className={styles.answer} >{el.answer}</div>
-                        <div>{el.grade}</div>
+                        <span>{el.grade}</span>
                         {userId === el.user_id ?
                             <>
                                 <button onClick={()=>{dispatch(deleteCardTC(el._id, el.cardsPack_id))}}>delete</button>
@@ -100,8 +103,6 @@ const CardsList = React.memo(() => {
                                             setUpdateAnswer(el.answer)
                                             setIdCard(el._id)
                                         }}>Edit</button>}
-
-
 
                             </> : ''}
 

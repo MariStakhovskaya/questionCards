@@ -32,3 +32,4 @@
 .modalContent.active {
     transform: scale(1);
 }
+.inputValue {display: block}

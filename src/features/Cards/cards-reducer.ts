@@ -1,6 +1,6 @@
 import {cardApi} from "../../api/cards-api";
 import {setStatusAC} from "../../app/app-reducer";
-import {AppActionsType, AppThunkType} from "../../redux/store";
+import {AppActionsType, AppRootState, AppThunkType} from "../../redux/store";
 import {isError} from "../Login/login-reducer";
 import {Dispatch} from "redux";
 
@@ -23,7 +23,7 @@ type InitialStateType = typeof initialState
 
 
 export const cardsReducer = (state: InitialStateType = initialState, action: AppActionsType): InitialStateType => {
-    debugger
+
     switch (action.type) {
         case "cards/SET-CARDS-LIST":
             return {...state, cards: action.cards}
@@ -31,6 +31,8 @@ export const cardsReducer = (state: InitialStateType = initialState, action: App
             return {...state,cardsTotalCount: action.cardsTotalCount}
         case 'cards/SET-CARDS-PAGE-COUNT':
             return {...state, params: {...state.params, pageCount: action.pageCount}}
+        case 'cards/SET-CARDS-PACK-ID':
+            return {...state, params: {...state.params, cardsPack_id: action.packId}}
         default:
             return state
     }
@@ -46,21 +48,30 @@ export const setCardsTotalCountAC = (cardsTotalCount:number) => ({
 export const setCardsPageCountAC = (pageCount:number) => ({
     type:'cards/SET-CARDS-PAGE-COUNT', pageCount
 } as const)
+export const setCardsPackIdAC = (packId:string) => ({
+    type:'cards/SET-CARDS-PACK-ID', packId
+} as const)
 
 
 // thunk
 export const getCardsListsTC = (cardsPack_id:string):AppThunkType => {
-    return (dispatch: Dispatch<AppActionsType>, getState ) => {
-        const params = getState().packs.params
+    return (dispatch: Dispatch<AppActionsType>, getState: ()=> AppRootState ) => {
+      /*  dispatch(setCardsPackIdAC(cardsPack_id))*/
+
+
+        const params = getState().cards.params
+        console.log(cardsPack_id)
         dispatch(setStatusAC('loading'))
 
-        cardApi.getCardsList(cardsPack_id,params)
+        cardApi.getCardsList(cardsPack_id)
             .then((res) => {
 
                 dispatch(setCardsListAC(res.data.cards))
-                dispatch(setCardsPageCountAC(res.data.cards.params.pageCount))
+                console.log(res.data.cards)
+                dispatch(setCardsPageCountAC(res.data.pageCount))
+                console.log(res.data.pageCount)
                 dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
-
+                console.log(res.data.cardsTotalCount)
                 dispatch(setStatusAC('succeeded'))
             })
             .catch(err => {
@@ -146,11 +157,12 @@ export const updateCardTC = (cardId: string, cardsPackId:string, question: strin
 
 
 //type
-export type CardsListActionsType = SetCardsListType | SetCardsTotalCountType | SetCardsPageCountACType
+export type CardsListActionsType = SetCardsListType | SetCardsTotalCountType | SetCardsPageCountACType | SetCardsPackIdACType
 
 export type SetCardsListType = ReturnType<typeof setCardsListAC>
 export type SetCardsTotalCountType = ReturnType<typeof setCardsTotalCountAC>
 export type SetCardsPageCountACType = ReturnType<typeof setCardsPageCountAC>
+export type SetCardsPackIdACType = ReturnType<typeof setCardsPackIdAC>
 
 
 

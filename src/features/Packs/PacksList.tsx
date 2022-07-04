@@ -45,7 +45,7 @@ const PacksList= React.memo(() =>{
                 dispatch(getPacksListsTC())
             }, 2000)
 
-    }, [params,searchPackAC])
+    }, [params,dispatch])
 
 
     const OnClickMyPacks = () => {

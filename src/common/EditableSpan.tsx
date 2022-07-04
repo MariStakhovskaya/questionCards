@@ -1,6 +1,5 @@
-
 import React, { ChangeEvent, useState } from 'react';
-
+import style from '../features/Profile/Modal.module.css'
 type EditableSpanPropsType = {
     value: string
     onChange: (newValue: string ) => void
@@ -24,7 +23,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
     }
 
     return editMode
-        ? <input value={props.value} onChange={changeTitle} autoFocus onBlur={activateViewMode}/>
-        : <span onDoubleClick={activateEditMode}>{props.value}</span>
+        ? <input className={style.inputValue} value={props.value} onChange={changeTitle} autoFocus onBlur={activateViewMode}/>
+        : <span className={style.inputValue} onDoubleClick={activateEditMode}>{props.value}</span>
 
 })
